@@ -11,8 +11,28 @@ config_version=5
 [application]
 
 config/name="2dProject-showcase"
+run/main_scene="res://addons/maaacks_menus_template/examples/scenes/menus/main_menu/main_menu_with_animations.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+AppConfig="*res://addons/maaacks_menus_template/base/scenes/autoloads/app_config.tscn"
+SceneLoader="*res://addons/maaacks_menus_template/base/scenes/autoloads/scene_loader.tscn"
+ProjectMusicController="*res://addons/maaacks_menus_template/base/scenes/autoloads/project_music_controller.tscn"
+ProjectUISoundController="*res://addons/maaacks_menus_template/base/scenes/autoloads/project_ui_sound_controller.tscn"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/maaacks_menus_template/plugin.cfg")
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://addons/maaacks_menus_template/base/translations/menus_translations.en.translation", "res://addons/maaacks_menus_template/base/translations/menus_translations.fr.translation")
+
+[maaacks_menus_template]
+
+disable_plugin_dialogues=true
 
 [rendering]
 
