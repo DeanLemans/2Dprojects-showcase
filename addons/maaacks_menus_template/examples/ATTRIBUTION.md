@@ -19,7 +19,7 @@ Author: [Name]()
 Source: [Domain : webpage.html]()  
 License: [License]()
 
-## Tools
+## Tools Used
 #### Godot
 Author: [Juan Linietsky, Ariel Manzur, and contributors](https://godotengine.org/contact)  
 Source: [godotengine.org](https://godotengine.org/)  
@@ -37,5 +37,15 @@ License: [MIT License](LICENSE.txt)
 
 #### Zed
 Author: [Nathan Sobo, and team](https://zed.dev/team)  
-Source: [Zed Industries](https://zed.dev/)  
-License: [AGPL License](https://www.gnu.org/licenses/agpl-3.0.md)  
+Source: [zed.dev](https://zed.dev/)  
+License: [AGPL License](https://github.com/zed-industries/zed/blob/main/LICENSE-AGPL)  
+
+#### Thorium
+Author: [Alex313031](https://github.com/Alex313031)  
+Source: [thorium.rocks](https://thorium.rocks/)  
+License: [BSD 3-Clause License](https://github.com/Alex313031/thorium/blob/main/LICENSE.md)  
+
+#### opensuse tumbleweed
+Author: []()  
+Source: []()  
+License: []() 
