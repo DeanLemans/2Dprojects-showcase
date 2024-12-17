@@ -6,13 +6,18 @@ Lead Developer
 [Dean Lemans](https://github.com/DeanLemans)
 
 
+## Tutorials used
+### automating github releases
+Author: [Voylin's GameDev Journey](https://www.youtube.com/@VoylinsGamedevJourney)  
+Source: [Video](https://www.youtube.com/watch?v=AbMESM0UEHk)  
+
+
 ## Sourced / Unaffiliated
 ### Asset Type
 #### Use Case
 Author: [Name]()  
 Source: [Domain : webpage.html]()  
 License: [License]()
-
 
 ## Tools
 #### Godot
@@ -29,3 +34,8 @@ License: [GNU General Public License version 2](https://opensource.org/licenses/
 Author: [Marek Belski](https://github.com/Maaack/Godot-Menus-Template/graphs/contributors)  
 Source: [github: Godot-Menus-Template](https://github.com/Maaack/Godot-Menus-Template)  
 License: [MIT License](LICENSE.txt)  
+
+#### Zed
+Author: [Nathan Sobo, and team](https://zed.dev/team)  
+Source: [Zed Industries](https://zed.dev/)  
+License: [AGPL License](https://www.gnu.org/licenses/agpl-3.0.md)  
