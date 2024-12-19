@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://crx7nexie5s80"]
+
+[ext_resource type="Script" path="res://2DPlatformer/scripts/win.gd" id="1_rijo4"]
+[ext_resource type="Texture2D" uid="uid://crq66vscgr5qi" path="res://2DPlatformer/Assets/goalfinish line placeholder.jpg" id="2_0huvl"]
+[ext_resource type="Theme" uid="uid://bq52vocemd2d3" path="res://2DPlatformer/Scenes/UI prefab.tres" id="3_hxckr"]
+
+[node name="win" type="Node2D"]
+script = ExtResource("1_rijo4")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("2_0huvl")
+stretch_mode = 1
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("3_hxckr")
+
+[node name="TooMain" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 523.0
+offset_top = 350.0
+offset_right = 700.0
+offset_bottom = 425.0
+text = "to main menu"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control"]
+layout_mode = 0
+offset_left = 537.0
+offset_top = 140.0
+offset_right = 693.0
+offset_bottom = 203.0
+bbcode_enabled = true
+text = "[center]Thou has won.
+good job[/center]"
+
+[connection signal="pressed" from="Control/TooMain" to="." method="_on_too_main_pressed"]

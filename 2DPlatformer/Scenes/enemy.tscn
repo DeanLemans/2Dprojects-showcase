@@ -1,0 +1,87 @@
+[gd_scene load_steps=9 format=3 uid="uid://di1q0naj5lgbi"]
+
+[ext_resource type="Script" path="res://2DPlatformer/scripts/enemy.gd" id="1_0pcf7"]
+[ext_resource type="Shader" path="res://2DPlatformer/enemy.gdshader" id="2_0fs3u"]
+[ext_resource type="Texture2D" uid="uid://cy4vs47pxyol7" path="res://2DPlatformer/Assets/template background 1.png" id="2_r3gp2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_36cna"]
+shader = ExtResource("2_0fs3u")
+shader_parameter/top = 1.0
+shader_parameter/bottom = 0.0
+shader_parameter/blob_threshold = 1.5
+shader_parameter/random_seed = 0.0
+shader_parameter/blob_scale_x = 1.0
+shader_parameter/blob_scale_y = 1.0
+shader_parameter/blobs_enabled = true
+shader_parameter/blob_speed = 1.0
+shader_parameter/background_edge = Color(0.1, 0, 0.2, 1)
+shader_parameter/background_center = Color(0.5, 0, 0.8, 1)
+shader_parameter/background_alpha = 0.5
+shader_parameter/blob_top = Color(1, 0.4, 0.4, 1)
+shader_parameter/blob_bottom = Color(1, 1, 0.3, 1)
+shader_parameter/blob_alpha = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v2n15"]
+size = Vector2(26, 26)
+
+[sub_resource type="Animation" id="Animation_rt6fb"]
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(200, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tjpwr"]
+resource_name = "enemy1"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(100, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vhnqd"]
+_data = {
+"RESET": SubResource("Animation_rt6fb"),
+"enemy1": SubResource("Animation_tjpwr")
+}
+
+[node name="Enemy" type="Node2D"]
+script = ExtResource("1_0pcf7")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="TemplateBackground1" type="Sprite2D" parent="Area2D"]
+material = SubResource("ShaderMaterial_36cna")
+position = Vector2(5.96046e-08, 5.96046e-08)
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("2_r3gp2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(0.95, 0.95)
+shape = SubResource("RectangleShape2D_v2n15")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vhnqd")
+}
+autoplay = "RESET"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

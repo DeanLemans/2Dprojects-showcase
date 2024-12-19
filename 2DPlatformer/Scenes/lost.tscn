@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://dsva31rglqhru"]
+
+[ext_resource type="Script" path="res://2DPlatformer/scripts/lost.gd" id="1_hhvo3"]
+[ext_resource type="Texture2D" uid="uid://cahyyesosjkfj" path="res://2DPlatformer/Assets/you-lose.jpg" id="3_iq7bg"]
+[ext_resource type="Theme" uid="uid://bq52vocemd2d3" path="res://2DPlatformer/Scenes/UI prefab.tres" id="3_krx66"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_hhvo3")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_iq7bg")
+stretch_mode = 1
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 508.0
+offset_top = 254.0
+offset_right = 548.0
+offset_bottom = 294.0
+theme = ExtResource("3_krx66")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control"]
+layout_mode = 0
+offset_left = -80.0
+offset_top = 61.0
+offset_right = 245.0
+offset_bottom = 99.0
+bbcode_enabled = true
+text = "[center]press 'Q' too go to main menu[/center]"
