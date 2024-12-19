@@ -4,16 +4,16 @@
 [ext_resource type="Shader" path="res://2DPlatformer/enemy.gdshader" id="2_0fs3u"]
 [ext_resource type="Texture2D" uid="uid://cy4vs47pxyol7" path="res://2DPlatformer/Assets/template background 1.png" id="2_r3gp2"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_36cna"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bsi1q"]
 shader = ExtResource("2_0fs3u")
 shader_parameter/top = 1.0
 shader_parameter/bottom = 0.0
 shader_parameter/blob_threshold = 1.5
-shader_parameter/random_seed = 0.0
+shader_parameter/random_seed = 1.0
 shader_parameter/blob_scale_x = 1.0
-shader_parameter/blob_scale_y = 1.0
-shader_parameter/blobs_enabled = true
-shader_parameter/blob_speed = 1.0
+shader_parameter/blob_scale_y = 2.0
+shader_parameter/blobs_enabled = false
+shader_parameter/blob_speed = 3.0
 shader_parameter/background_edge = Color(0.1, 0, 0.2, 1)
 shader_parameter/background_center = Color(0.5, 0, 0.8, 1)
 shader_parameter/background_alpha = 0.5
@@ -69,7 +69,7 @@ script = ExtResource("1_0pcf7")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="TemplateBackground1" type="Sprite2D" parent="Area2D"]
-material = SubResource("ShaderMaterial_36cna")
+material = SubResource("ShaderMaterial_bsi1q")
 position = Vector2(5.96046e-08, 5.96046e-08)
 scale = Vector2(0.42, 0.42)
 texture = ExtResource("2_r3gp2")

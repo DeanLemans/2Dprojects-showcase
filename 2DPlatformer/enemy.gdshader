@@ -5,11 +5,11 @@ shader_type canvas_item;
 uniform float top = 1.0;                      // Top of the blob area
 uniform float bottom = 0.0;                   // Bottom of the blob area
 uniform float blob_threshold = 1.5;           // Threshold for blob visibility
-uniform float random_seed = 0.0;              // Unique random seed per object
-uniform float blob_scale_x = 1.0;             // Scale factor for blob size (X axis)
+uniform float random_seed = 0.1;              // Unique random seed per object
+uniform float blob_scale_x = 3.0;             // Scale factor for blob size (X axis)
 uniform float blob_scale_y = 1.0;             // Scale factor for blob size (Y axis)
 uniform bool blobs_enabled = true;            // Enable or disable blobs
-uniform float blob_speed = 1.0;               // Speed of the blob movement
+uniform float blob_speed = 3.0;               // Speed of the blob movement
 
 // Background gradient colors with adjustable alpha
 uniform vec4 background_edge : source_color = vec4(0.1, 0.0, 0.2, 1.0);
