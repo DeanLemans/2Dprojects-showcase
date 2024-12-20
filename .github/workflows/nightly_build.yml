@@ -1,0 +1,116 @@
+name: Build on Push
+run-name: Building version ${{ github.run_number }}
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [linux, windows, macos, web]
+        include:
+          - platform: linux
+            runs-on: ubuntu-latest
+            export_folder: bin/Linux
+            export_format: x11.64
+            file_extension: zip
+          - platform: windows
+            runs-on: windows-latest
+            export_folder: bin/Windows
+            export_format: win64
+            file_extension: zip
+          - platform: macos
+            runs-on: macos-latest
+            export_folder: bin/MacOS
+            export_format: macos
+            file_extension: zip
+          - platform: web
+            runs-on: ubuntu-latest
+            export_folder: bin/Web
+            export_format: web
+            file_extension: zip
+      fail-fast: false
+
+    runs-on: ${{ matrix.runs-on }}
+    permissions: write-all
+
+    env:
+      GODOT_VERSION: 4.3
+      GODOT_PROJECT_LOCATION: source/project.godot
+      APPLICATION_NAME: Deans_2D_Projects
+      BUILD_NAME: Deans_2D_Projects-${{ matrix.platform }}-nightly-${{ github.run_number }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Cache Godot templates
+        id: cache-templates
+        uses: actions/cache@v4.2.0
+        with:
+          path: ./templates
+          key: godot-templates-${{ env.GODOT_VERSION }}
+
+      - name: Download Godot export templates
+        if: steps.cache-templates.outputs.cache-hit != 'true'
+        uses: actions/download-artifact@v4.1.8
+        with:
+          name: godot-templates
+          url: https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_export_templates.tpz
+          path: ./templates
+
+      - name: Create export directory
+        run: mkdir -p ${{ matrix.export_folder }}
+
+      - name: Export Game
+        uses: ./.github/actions/export-game
+        id: export
+        with:
+          godot_version: ${{ env.GODOT_VERSION }}
+          relative_project_path: ./
+          export_path: ${{ matrix.export_folder }}
+          export_format: ${{ matrix.export_format }}
+        continue-on-error: true
+
+      - name: Zip Build
+        run: |
+          cd ${{ matrix.export_folder }}
+          zip -r ../${{ env.BUILD_NAME }}.${{ matrix.file_extension }} ./*
+        shell: bash
+
+      - name: Create Release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && success()
+        id: create_release
+        uses: softprops/action-gh-release@v2.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: nightly-${{ github.run_number }}
+          name: Build ${{ github.run_number }}
+          draft: false
+          prerelease: false
+          files: ${{ env.BUILD_NAME }}.${{ matrix.file_extension }}
+          body: |
+            Build generated from commit: ${{ github.sha }}
+
+            Commit Title: ${{ github.event.head_commit.message }}
+
+            Commit Description:
+            ${{ github.event.head_commit.description || 'No description provided' }}
+
+            Branch: ${{ github.ref_name }}
+            Timestamp: ${{ github.event.head_commit.timestamp }}
+
+      - name: Upload Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4.5.0
+        with:
+          name: ${{ env.BUILD_NAME }}
+          path: ${{ env.BUILD_NAME }}.${{ matrix.file_extension }}
+          retention-days: 7
+          if-no-files-found: error
