@@ -1,0 +1,39 @@
+name: "Export Game"
+description: "Exports a Godot project"
+inputs:
+  godot_version:
+    description: "Godot version to use"
+    required: true
+  relative_project_path:
+    description: "Path to the Godot project"
+    required: true
+  export_path:
+    description: "Path where to export the game"
+    required: true
+  export_format:
+    description: "Export format (win64, x11.64, etc)"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Download Godot
+      shell: bash
+      run: |
+        wget -q https://github.com/godotengine/godot/releases/download/${{ inputs.godot_version }}-stable/Godot_v${{ inputs.godot_version }}-stable_linux.x86_64.zip
+        unzip Godot_v${{ inputs.godot_version }}-stable_linux.x86_64.zip
+        mv Godot_v${{ inputs.godot_version }}-stable_linux.x86_64 godot
+        chmod +x godot
+
+    - name: Setup export templates
+      shell: bash
+      run: |
+        mkdir -p ~/.local/share/godot/templates/${{ inputs.godot_version }}.stable
+        unzip ./templates/templates.tpz
+        mv templates/* ~/.local/share/godot/templates/${{ inputs.godot_version }}.stable/
+
+    - name: Export project
+      shell: bash
+      run: |
+        mkdir -p ${{ inputs.export_path }}
+        ./godot --headless --export-release ${{ inputs.export_format }} ${{ inputs.export_path }}/game.${{ inputs.export_format }} ${{ inputs.relative_project_path }}
