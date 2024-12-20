@@ -9,3 +9,9 @@
 script = ExtResource("2_lk0wa")
 options_packed_scene = ExtResource("3_lqjmk")
 credits_packed_scene = ExtResource("3_vmius")
+
+[node name="BackgroundMusicPlayer" parent="." index="1"]
+bus = &"Master"
+
+[node name="TitleLabel" parent="MenuContainer/TitleMargin/TitleContainer" index="0"]
+text = "2dProject-showcase"
