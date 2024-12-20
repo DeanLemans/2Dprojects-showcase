@@ -30,10 +30,12 @@ jobs:
             runs-on: ubuntu-latest
             export_folder: bin/Web
             export_format: web
+            container: barichello/godot-ci:4.3 # Added for web builds
       fail-fast: false
       # Continue with other platforms if one fails
 
     runs-on: ${{ matrix.runs-on }}
+    container: ${{ matrix.platform == 'web' && matrix.container || null }}
     permissions: write-all
 
     env:
@@ -49,7 +51,16 @@ jobs:
           fetch-depth: 0
           # Remove lfs: true | not needed
 
+      # Special handling for web platform
+      - name: Setup Web templates
+        if: matrix.platform == 'web'
+        run: |
+          mkdir -v -p ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+        shell: bash
+
       - name: Cache Godot templates
+        if: matrix.platform != 'web' # Skip for web as it uses container
         id: cache-templates
         uses: actions/cache@v4.2.0
         with:
@@ -57,7 +68,7 @@ jobs:
           key: godot-templates-${{ env.GODOT_VERSION }}
 
       - name: Download Godot export templates
-        if: steps.cache-templates.outputs.cache-hit != 'true'
+        if: steps.cache-templates.outputs.cache-hit != 'true' && matrix.platform != 'web'
         run: |
           mkdir -p ./templates
           curl -L -o ./templates/templates.tpz "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_export_templates.tpz" || \
@@ -70,7 +81,15 @@ jobs:
       - name: Create export directory
         run: mkdir -p ${{ matrix.export_folder }}
 
+      # Different export process for web
+      - name: Export Web Build
+        if: matrix.platform == 'web'
+        run: |
+          godot -v --export "HTML5" ../bin/Web/index.html project/project.godot
+        shell: bash
+
       - name: Export Game
+        if: matrix.platform != 'web'
         uses: ./.github/actions/export-game
         id: export
         with:
@@ -90,7 +109,21 @@ jobs:
           fi
         shell: bash
 
+      # Deploy web build to GitHub Pages
+      - name: Deploy to GitHub Pages
+        if: matrix.platform == 'web' && github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        uses: peaceiris/actions-gh-pages@v4.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ matrix.export_folder }}
+          force_orphan: true
+          user_name: "github-ci[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
+          commit_message: "Publish to gh-pages"
+
+      # Continue with existing steps for non-web platforms
       - name: Zip Build
+        if: matrix.platform != 'web'
         run: |
           echo "Current directory: $(pwd)"
           echo "Contents of export folder:"
@@ -113,6 +146,7 @@ jobs:
         shell: bash
 
       - name: Verify zip file
+        if: matrix.platform != 'web'
         run: |
           if [ ! -f "${{ env.BUILD_NAME }}.${{ matrix.file_extension }}" ]; then
             echo "Error: Zip file not found: ${{ env.BUILD_NAME }}.${{ matrix.file_extension }}"
@@ -124,7 +158,7 @@ jobs:
         shell: bash
 
       - name: Create Release
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && success()
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && success() && matrix.platform != 'web'
         id: create_release
         uses: softprops/action-gh-release@v2.2.0
         env:
@@ -151,6 +185,6 @@ jobs:
         uses: actions/upload-artifact@v4.5.0
         with:
           name: ${{ env.BUILD_NAME }}
-          path: ${{ env.BUILD_NAME }}.${{ matrix.file_extension }}
+          path: ${{ matrix.platform == 'web' && matrix.export_folder || env.BUILD_NAME }}.${{ matrix.file_extension }}
           retention-days: 7
           if-no-files-found: error
