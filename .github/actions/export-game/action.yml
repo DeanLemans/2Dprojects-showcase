@@ -37,7 +37,7 @@ runs:
       run: |
         mkdir -p .godot/editor/
         chmod -R 777 .godot
-        cp "src\export_presets.cfg" ./
+        cp "src/export_presets.cfg" ./
         chmod 666 export_presets.cfg
 
     - name: Export project

@@ -18,18 +18,22 @@ jobs:
             runs-on: ubuntu-latest
             export_folder: bin/Linux
             export_format: x11.64
+            file_extension: zip
           - platform: windows
             runs-on: windows-latest
             export_folder: bin/Windows
             export_format: win64
+            file_extension: zip
           - platform: macos
             runs-on: macos-latest
             export_folder: bin/MacOS
             export_format: macos
+            file_extension: zip
           - platform: web
             runs-on: ubuntu-latest
             export_folder: bin/Web
             export_format: web
+            file_extension: html
             container: barichello/godot-ci:4.3 # Added for web builds
       fail-fast: false
       # Continue with other platforms if one fails
@@ -85,7 +89,7 @@ jobs:
       - name: Export Web Build
         if: matrix.platform == 'web'
         run: |
-          godot -v --export "HTML5" ../bin/Web/index.html project/project.godot
+          godot -v --export "HTML5" ${{ matrix.export_folder }}/index.html src/project.godot
         shell: bash
 
       - name: Export Game
