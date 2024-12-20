@@ -32,8 +32,17 @@ runs:
         unzip ./templates/templates.tpz
         mv templates/* ~/.local/share/godot/templates/${{ inputs.godot_version }}.stable/
 
+    - name: Setup project
+      shell: bash
+      run: |
+        mkdir -p .godot/editor/
+        chmod -R 777 .godot
+        cp .github/actions/export-game/export_presets.cfg ./
+        chmod 666 export_presets.cfg
+
     - name: Export project
       shell: bash
       run: |
         mkdir -p ${{ inputs.export_path }}
-        ./godot --headless --export-release ${{ inputs.export_format }} ${{ inputs.export_path }}/game.${{ inputs.export_format }} ${{ inputs.relative_project_path }}
+        ./godot --headless --export-release "${{ inputs.export_format }}" "${{ inputs.export_path }}/game.${{ inputs.export_format }}" || \
+        ./godot --headless --export "${{ inputs.export_format }}" "${{ inputs.export_path }}/game.${{ inputs.export_format }}"
