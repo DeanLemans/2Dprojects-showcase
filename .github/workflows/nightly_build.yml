@@ -39,7 +39,7 @@ jobs:
 
     env:
       GODOT_VERSION: 4.3
-      GODOT_PROJECT_LOCATION: source/project.godot
+      GODOT_PROJECT_LOCATION: src/project.godot
       APPLICATION_NAME: Deans_2D_Projects
       BUILD_NAME: Deans_2D_Projects-${{ matrix.platform }}-nightly-${{ github.run_number }}
 
