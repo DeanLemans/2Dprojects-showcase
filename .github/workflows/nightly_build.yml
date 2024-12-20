@@ -58,11 +58,14 @@ jobs:
 
       - name: Download Godot export templates
         if: steps.cache-templates.outputs.cache-hit != 'true'
-        uses: actions/download-artifact@v4.1.8
-        with:
-          name: godot-templates
-          url: https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_export_templates.tpz
-          path: ./templates
+        run: |
+          mkdir -p ./templates
+          curl -L -o ./templates/templates.tpz "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_export_templates.tpz" || \
+          curl -L -o ./templates/templates.tpz "https://downloads.tuxfamily.org/godotengine/${{ env.GODOT_VERSION }}/Godot_v${{ env.GODOT_VERSION }}-stable_export_templates.tpz"
+
+          echo "Downloaded template archive:"
+          ls -la ./templates/templates.tpz
+        shell: bash
 
       - name: Create export directory
         run: mkdir -p ${{ matrix.export_folder }}
