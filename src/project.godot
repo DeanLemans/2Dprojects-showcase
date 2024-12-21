@@ -13,6 +13,8 @@ config_version=5
 config/name="2dProject-showcase"
 run/main_scene="res://main_menu_with_animations.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
+run/low_processor_mode=true
+boot_splash/image="res://traditional-dark.png"
 config/icon="res://icon.svg"
 
 [autoload]
