@@ -14,6 +14,12 @@ inputs:
     description: "Export format (win64, x11.64, etc)"
     required: true
 
+steps:
+  # Add this step before the export
+  - name: Create logs directory
+    shell: bash
+    run: mkdir -p .godot/logs
+
 runs:
   using: "composite"
   steps:
@@ -37,12 +43,33 @@ runs:
       run: |
         mkdir -p .godot/editor/
         chmod -R 777 .godot
-        cp -r src/* ./  # Copy all project files, not just export_presets.cfg
+        cp -r src/* ./
         chmod 666 export_presets.cfg
+        echo "Project setup complete. Contents:"
+        ls -la
+        echo "export_presets.cfg contents:"
+        cat export_presets.cfg
 
     - name: Export project
       shell: bash
       run: |
+        echo "Starting export process..."
+        echo "Current directory: $(pwd)"
+        echo "Project path: ${{ inputs.relative_project_path }}"
+        echo "Export path: ${{ inputs.export_path }}"
+        echo "Export format: ${{ inputs.export_format }}"
+
         mkdir -p ${{ inputs.export_path }}
+
         ./godot --headless --verbose --path ${{ inputs.relative_project_path }} --export-release "${{ inputs.export_format }}" "${{ inputs.export_path }}/game" || \
         ./godot --headless --verbose --path ${{ inputs.relative_project_path }} --export "${{ inputs.export_format }}" "${{ inputs.export_path }}/game"
+
+        export_status=$?
+        if [ $export_status -ne 0 ]; then
+          echo "Export failed with status $export_status"
+          if [ -d ".godot/logs" ]; then
+            echo "Contents of log directory:"
+            ls -la .godot/logs/
+          fi
+        fi
+        exit $export_status

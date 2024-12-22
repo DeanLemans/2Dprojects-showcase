@@ -99,8 +99,20 @@ jobs:
         if: matrix.platform != 'web'
         run: |
           if [ "${{ steps.export.outcome }}" == "failure" ]; then
-            echo "Export failed, checking logs..."
-            cat .godot/logs/editor_*.txt || true
+            echo "Export failed"
+            # Create logs directory if it doesn't exist
+            mkdir -p .godot/logs
+            # Check if any log files exist
+            if ls .godot/logs/editor_*.txt 1> /dev/null 2>&1; then
+              echo "Found log files:"
+              cat .godot/logs/editor_*.txt
+            else
+              echo "No log files found in .godot/logs/"
+              echo "Current directory contents:"
+              ls -la
+              echo "Godot directory contents:"
+              ls -la .godot/ || echo "No .godot directory found"
+            fi
             exit 1
           fi
         shell: bash
