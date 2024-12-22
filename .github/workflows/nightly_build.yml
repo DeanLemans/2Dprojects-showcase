@@ -125,20 +125,14 @@ jobs:
           echo "Contents of export folder:"
           ls -la ${{ matrix.export_folder }}
 
+          # Create zip file directly in the root directory
           cd ${{ matrix.export_folder }}
-          echo "Contents of current directory after cd:"
+          zip -r "../../${{ env.BUILD_NAME }}.${{ matrix.file_extension }}" .
+          cd ../..
+
+          # Verify the zip was created
+          echo "Contents of root directory:"
           ls -la
-
-          zip -r "../${{ env.BUILD_NAME }}.${{ matrix.file_extension }}" ./*
-
-          cd ..
-          echo "Contents of parent directory:"
-          ls -la
-
-          if [ ! -f "${{ env.BUILD_NAME }}.${{ matrix.file_extension }}" ]; then
-            echo "Error: Zip file was not created!"
-            exit 1
-          fi
         shell: bash
 
       - name: Verify zip file
@@ -146,6 +140,8 @@ jobs:
         run: |
           if [ ! -f "${{ env.BUILD_NAME }}.${{ matrix.file_extension }}" ]; then
             echo "Error: Zip file not found: ${{ env.BUILD_NAME }}.${{ matrix.file_extension }}"
+            pwd
+            ls -la
             exit 1
           else
             echo "Zip file found: ${{ env.BUILD_NAME }}.${{ matrix.file_extension }}"
@@ -181,6 +177,7 @@ jobs:
         uses: actions/upload-artifact@v4.5.0
         with:
           name: ${{ env.BUILD_NAME }}
-          path: ${{ matrix.platform == 'web' && matrix.export_folder || env.BUILD_NAME }}.${{ matrix.file_extension }}
+          path: |
+            ${{ matrix.platform == 'web' && matrix.export_folder || env.BUILD_NAME }}.${{ matrix.file_extension }}
           retention-days: 7
           if-no-files-found: error
