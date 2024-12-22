@@ -17,22 +17,22 @@ jobs:
           - platform: linux
             runs-on: ubuntu-latest
             export_folder: bin/Linux
-            export_format: x11.64
+            export_format: Linux
             file_extension: zip
           - platform: windows
             runs-on: windows-latest
             export_folder: bin/Windows
-            export_format: win64
+            export_format: Windows
             file_extension: zip
           - platform: macos
             runs-on: macos-latest
             export_folder: bin/MacOS
-            export_format: macos
+            export_format: macOS
             file_extension: zip
           - platform: web
             runs-on: ubuntu-latest
             export_folder: bin/Web
-            export_format: web
+            export_format: HTML5
             file_extension: html
             container: barichello/godot-ci:4.3 # Added for web builds
       fail-fast: false
