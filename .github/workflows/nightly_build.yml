@@ -56,11 +56,14 @@ jobs:
           # Remove lfs: true | not needed
 
       # Special handling for web platform
-      - name: Setup Web templates
-        if: matrix.platform == 'web'
+      - name: Setup export templates
+        if: steps.cache-templates.outputs.cache-hit != 'true' && matrix.platform != 'web'
         run: |
-          mkdir -v -p ~/.local/share/godot/templates
-          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+          mkdir -p ./templates
+          curl -L -o ./templates/templates.tpz "https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_export_templates.tpz"
+
+          echo "Downloaded template archive:"
+          ls -la ./templates/templates.tpz
         shell: bash
 
       - name: Cache Godot templates
@@ -70,17 +73,6 @@ jobs:
         with:
           path: ./templates
           key: godot-templates-${{ env.GODOT_VERSION }}
-
-      - name: Download Godot export templates
-        if: steps.cache-templates.outputs.cache-hit != 'true' && matrix.platform != 'web'
-        run: |
-          mkdir -p ./templates
-          curl -L -o ./templates/templates.tpz "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_export_templates.tpz" || \
-          curl -L -o ./templates/templates.tpz "https://downloads.tuxfamily.org/godotengine/${{ env.GODOT_VERSION }}/Godot_v${{ env.GODOT_VERSION }}-stable_export_templates.tpz"
-
-          echo "Downloaded template archive:"
-          ls -la ./templates/templates.tpz
-        shell: bash
 
       - name: Create export directory
         run: mkdir -p ${{ matrix.export_folder }}
