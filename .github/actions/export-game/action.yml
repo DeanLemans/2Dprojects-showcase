@@ -28,9 +28,9 @@ runs:
     - name: Setup export templates
       shell: bash
       run: |
-        mkdir -p ~/.local/share/godot/templates/${{ inputs.godot_version }}.stable
+        mkdir -p ~/.local/share/godot/export_templates/4.3.stable
         unzip ./templates/templates.tpz
-        mv templates/* ~/.local/share/godot/templates/${{ inputs.godot_version }}.stable/
+        mv templates/* ~/.local/share/godot/export_templates/4.3.stable/
 
     - name: Setup project
       shell: bash
@@ -44,5 +44,5 @@ runs:
       shell: bash
       run: |
         mkdir -p ${{ inputs.export_path }}
-        ./godot --headless --export-release "${{ inputs.export_format }}" "${{ inputs.export_path }}/game.${{ inputs.export_format }}" || \
-        ./godot --headless --export "${{ inputs.export_format }}" "${{ inputs.export_path }}/game.${{ inputs.export_format }}"
+        ./godot --headless --export-release "${{ inputs.export_format }}" "${{ inputs.export_path }}/game" || \
+        ./godot --headless --export "${{ inputs.export_format }}" "${{ inputs.export_path }}/game"
