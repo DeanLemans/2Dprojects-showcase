@@ -80,9 +80,9 @@ jobs:
       # Different export process for web
       - name: Export Web Build
         if: matrix.platform == 'web'
-        run: |
-          godot -v --path ./src --export-release "HTML5" ${{ matrix.export_folder }}/index.html
-        shell: bash
+        uses: docker://barichello/godot-ci:4.3
+        with:
+          args: godot --headless --verbose --path ./src --export-release "HTML5" ${{ matrix.export_folder }}/index.html
 
       - name: Export Game
         if: matrix.platform != 'web'
@@ -175,6 +175,21 @@ jobs:
           fi
         shell: bash
 
+      - name: Verify file before release
+        if: matrix.platform != 'web'
+        run: |
+          if [ ! -f "${{ env.BUILD_NAME }}.${{ matrix.file_extension }}" ]; then
+            echo "Error: File not found"
+            exit 1
+          fi
+
+          # Print file size and details
+          ls -lh "${{ env.BUILD_NAME }}.${{ matrix.file_extension }}"
+
+          # Verify zip integrity
+          unzip -t "${{ env.BUILD_NAME }}.${{ matrix.file_extension }}"
+        shell: bash
+
       - name: Create Release
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && success() && matrix.platform != 'web'
         id: create_release
@@ -186,8 +201,7 @@ jobs:
           name: Build ${{ github.run_number }}
           draft: false
           prerelease: false
-          files: |
-            ${{ env.BUILD_NAME }}.${{ matrix.file_extension }}
+          files: ${{ env.BUILD_NAME }}.${{ matrix.file_extension }}
           fail_on_unmatched_files: true
           body: |
             Build generated from commit: ${{ github.sha }}
@@ -199,6 +213,7 @@ jobs:
 
             Branch: ${{ github.ref_name }}
             Timestamp: ${{ github.event.head_commit.timestamp }}
+            File Size: $(stat -f%z "${{ env.BUILD_NAME }}.${{ matrix.file_extension }}")
 
       - name: Upload Artifacts
         if: always()
