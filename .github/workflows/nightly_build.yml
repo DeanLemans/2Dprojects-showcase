@@ -95,6 +95,16 @@ jobs:
           export_format: ${{ matrix.export_format }}
         continue-on-error: true
 
+      - name: Check Export Status
+        if: matrix.platform != 'web'
+        run: |
+          if [ "${{ steps.export.outcome }}" == "failure" ]; then
+            echo "Export failed, checking logs..."
+            cat .godot/logs/editor_*.txt || true
+            exit 1
+          fi
+        shell: bash
+
       - name: Check export results
         run: |
           echo "Export folder contents:"
@@ -125,14 +135,18 @@ jobs:
           echo "Contents of export folder:"
           ls -la ${{ matrix.export_folder }}
 
-          # Create zip file directly in the root directory
+          # Create zip file with maximum compression
           cd ${{ matrix.export_folder }}
-          zip -r "../../${{ env.BUILD_NAME }}.${{ matrix.file_extension }}" .
+          zip -9 -r "../../${{ env.BUILD_NAME }}.${{ matrix.file_extension }}" .
           cd ../..
 
-          # Verify the zip was created
+          # Verify the zip was created and show its size
           echo "Contents of root directory:"
           ls -la
+          if [ -f "${{ env.BUILD_NAME }}.${{ matrix.file_extension }}" ]; then
+            echo "Zip file details:"
+            unzip -l "${{ env.BUILD_NAME }}.${{ matrix.file_extension }}"
+          fi
         shell: bash
 
       - name: Verify zip file
@@ -160,7 +174,9 @@ jobs:
           name: Build ${{ github.run_number }}
           draft: false
           prerelease: false
-          files: ${{ env.BUILD_NAME }}.${{ matrix.file_extension }}
+          files: |
+            ${{ env.BUILD_NAME }}.${{ matrix.file_extension }}
+          fail_on_unmatched_files: true
           body: |
             Build generated from commit: ${{ github.sha }}
 
