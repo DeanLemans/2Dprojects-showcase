@@ -37,12 +37,12 @@ runs:
       run: |
         mkdir -p .godot/editor/
         chmod -R 777 .godot
-        cp "src/export_presets.cfg" ./
+        cp -r src/* ./  # Copy all project files, not just export_presets.cfg
         chmod 666 export_presets.cfg
 
     - name: Export project
       shell: bash
       run: |
         mkdir -p ${{ inputs.export_path }}
-        ./godot --headless --export-release "${{ inputs.export_format }}" "${{ inputs.export_path }}/game" || \
-        ./godot --headless --export "${{ inputs.export_format }}" "${{ inputs.export_path }}/game"
+        ./godot --headless --verbose --path --export-release "${{ inputs.export_format }}" "${{ inputs.export_path }}/game" || \
+        ./godot --headless --verbose --path --export "${{ inputs.export_format }}" "${{ inputs.export_path }}/game"

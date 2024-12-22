@@ -44,7 +44,7 @@ jobs:
 
     env:
       GODOT_VERSION: 4.3
-      GODOT_PROJECT_LOCATION: ./project.godot
+      GODOT_PROJECT_LOCATION: src/project.godot
       APPLICATION_NAME: Deans_2D_Projects
       BUILD_NAME: Deans_2D_Projects-${{ matrix.platform }}-nightly-${{ github.run_number }}
 
@@ -81,7 +81,7 @@ jobs:
       - name: Export Web Build
         if: matrix.platform == 'web'
         run: |
-          godot -v --export "HTML5" ${{ matrix.export_folder }}/index.html src/project.godot
+          godot -v --path ./src --export-release "HTML5" ${{ matrix.export_folder }}/index.html
         shell: bash
 
       - name: Export Game
