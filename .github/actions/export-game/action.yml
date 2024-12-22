@@ -44,5 +44,5 @@ runs:
       shell: bash
       run: |
         mkdir -p ${{ inputs.export_path }}
-        ./godot --headless --verbose --path --export-release "${{ inputs.export_format }}" "${{ inputs.export_path }}/game" || \
-        ./godot --headless --verbose --path --export "${{ inputs.export_format }}" "${{ inputs.export_path }}/game"
+        ./godot --headless --verbose --path ${{ inputs.relative_project_path }} --export-release "${{ inputs.export_format }}" "${{ inputs.export_path }}/game" || \
+        ./godot --headless --verbose --path ${{ inputs.relative_project_path }} --export "${{ inputs.export_format }}" "${{ inputs.export_path }}/game"
