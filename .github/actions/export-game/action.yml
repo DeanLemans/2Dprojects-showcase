@@ -15,11 +15,6 @@ inputs:
     required: true
 
 steps:
-  # Add this step before the export
-  - name: Create logs directory
-    shell: bash
-    run: mkdir -p .godot/logs
-
 runs:
   using: "composite"
   steps:

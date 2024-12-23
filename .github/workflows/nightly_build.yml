@@ -18,17 +18,14 @@ jobs:
             runs-on: ubuntu-latest
             export_folder: bin/Linux
             export_format: Linux
-            file_extension: zip
           - platform: windows
             runs-on: windows-latest
             export_folder: bin/Windows
             export_format: Windows
-            file_extension: zip
           - platform: macos
             runs-on: macos-latest
             export_folder: bin/MacOS
             export_format: macOS
-            file_extension: zip
           - platform: web
             runs-on: ubuntu-latest
             export_folder: bin/Web
@@ -127,42 +124,6 @@ jobs:
           user_email: "github-actions[bot]@users.noreply.github.com"
           commit_message: "Publish to gh-pages"
 
-      # Continue with existing steps for non-web platforms
-      - name: Zip Build
-        if: matrix.platform != 'web'
-        run: |
-          echo "Current directory: $(pwd)"
-          echo "Contents of export folder:"
-          ls -la ${{ matrix.export_folder }}
-
-          # Create zip file with maximum compression
-          cd ${{ matrix.export_folder }}
-          zip -9 -r "../../${{ env.BUILD_NAME }}.${{ matrix.file_extension }}" .
-          cd ../..
-
-          # Verify the zip was created and show its size
-          echo "Contents of root directory:"
-          ls -la
-          if [ -f "${{ env.BUILD_NAME }}.${{ matrix.file_extension }}" ]; then
-            echo "Zip file details:"
-            unzip -l "${{ env.BUILD_NAME }}.${{ matrix.file_extension }}"
-          fi
-        shell: bash
-
-      - name: Verify zip file
-        if: matrix.platform != 'web'
-        run: |
-          if [ ! -f "${{ env.BUILD_NAME }}.${{ matrix.file_extension }}" ]; then
-            echo "Error: Zip file not found: ${{ env.BUILD_NAME }}.${{ matrix.file_extension }}"
-            pwd
-            ls -la
-            exit 1
-          else
-            echo "Zip file found: ${{ env.BUILD_NAME }}.${{ matrix.file_extension }}"
-            ls -lh "${{ env.BUILD_NAME }}.${{ matrix.file_extension }}"
-          fi
-        shell: bash
-
       - name: Create Release
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && success() && matrix.platform != 'web'
         id: create_release
@@ -193,7 +154,6 @@ jobs:
         uses: actions/upload-artifact@v4.5.0
         with:
           name: ${{ env.BUILD_NAME }}
-          path: |
-            ${{ matrix.platform == 'web' && matrix.export_folder || env.BUILD_NAME }}.${{ matrix.file_extension }}
+          path: ${{ matrix.export_folder }}
           retention-days: 7
           if-no-files-found: error
