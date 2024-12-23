@@ -10,8 +10,8 @@ on:
 
 jobs:
   import-assets:
-    runs-on: ubuntu-latest
-    container: barichello/godot-ci:4.3
+    runs-on: ubuntu-latest # Base runner
+    container: barichello/godot-ci:4.3 # Using container for Godot
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4.2.2
@@ -26,33 +26,29 @@ jobs:
 
   build:
     needs: import-assets
+    runs-on: ubuntu-latest # All builds now use ubuntu-latest
+    container: barichello/godot-ci:4.3 # Using container for all platforms
     strategy:
       matrix:
+        # Simplified platform configuration since all use same runner
         platform: [linux, windows, macos, web]
         include:
           - platform: linux
-            runs-on: ubuntu-latest
             export_folder: bin/Linux
             export_format: Linux
           - platform: windows
-            runs-on: windows-latest
             export_folder: bin/Windows
             export_format: Windows
           - platform: macos
-            runs-on: macos-latest
             export_folder: bin/MacOS
             export_format: macOS
           - platform: web
-            runs-on: ubuntu-latest
             export_folder: bin/Web
             export_format: HTML5
             file_extension: html
-            container: barichello/godot-ci:4.3 # Added for web builds
       fail-fast: false
       # Continue with other platforms if one fails
 
-    runs-on: ${{ matrix.runs-on }}
-    container: ${{ matrix.platform == 'web' && matrix.container || null }}
     permissions: write-all
 
     env:
