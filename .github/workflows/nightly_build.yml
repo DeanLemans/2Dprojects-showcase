@@ -9,7 +9,23 @@ on:
   #- cron: '0 0 * * *'  # Added scheduled nightly builds
 
 jobs:
+  import-assets:
+    runs-on: ubuntu-latest
+    container: barichello/godot-ci:4.3
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+          # Remove lfs: true | not needed
+
+      - name: Import assets
+        run: |
+          godot --headless --verbose --editor --quit
+        shell: bash
+
   build:
+    needs: import-assets
     strategy:
       matrix:
         platform: [linux, windows, macos, web]
@@ -134,18 +150,15 @@ jobs:
           tag_name: nightly-${{ github.run_number }}
           name: Build ${{ github.run_number }}
           draft: false
-          prerelease: false
+          prerelease: true
           files: |
             ${{ env.BUILD_NAME }}.${{ matrix.file_extension }}
           fail_on_unmatched_files: true
           body: |
             Build generated from commit: ${{ github.sha }}
-
             Commit Title: ${{ github.event.head_commit.message }}
-
             Commit Description:
             ${{ github.event.head_commit.description || 'No description provided' }}
-
             Branch: ${{ github.ref_name }}
             Timestamp: ${{ github.event.head_commit.timestamp }}
 
