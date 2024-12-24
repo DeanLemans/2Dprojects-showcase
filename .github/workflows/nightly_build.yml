@@ -87,21 +87,15 @@ jobs:
         run: mkdir -p ${{ matrix.export_folder }}
 
       # Different export process for web
-      - name: Export Web Build
-        if: matrix.platform == 'web'
-        run: |
-          godot -v --path ./src --export-release "HTML5" ${{ matrix.export_folder }}/index.html
-        shell: bash
-
       - name: Export Game
-        if: matrix.platform != 'web'
         uses: ./.github/actions/export-game
         id: export
         with:
           godot_version: ${{ env.GODOT_VERSION }}
-          relative_project_path: ./
+          relative_project_path: ${{ env.GODOT_PROJECT_LOCATION }}
           export_path: ${{ matrix.export_folder }}
           export_format: ${{ matrix.export_format }}
+          export_name: ${{ env.APPLICATION_NAME }}
         continue-on-error: true
 
       - name: Check Export Status
