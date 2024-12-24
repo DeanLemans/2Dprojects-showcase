@@ -20,6 +20,7 @@ jobs:
           # Remove lfs: true | not needed
       - name: Import assets
         run: |
+          cd src  # Change to the project directory first
           godot --headless --verbose --editor --quit
         shell: sh
 
@@ -29,7 +30,6 @@ jobs:
     container: barichello/godot-ci:4.3 # Using container for all platforms
     strategy:
       matrix:
-        # Simplified platform configuration since all use same runner
         platform: [linux, windows, macos, web]
         include:
           - platform: linux

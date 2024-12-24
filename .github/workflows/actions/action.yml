@@ -24,7 +24,7 @@ runs:
       shell: sh
       run: |
         mkdir -v -p ~/.local/share/godot/export_templates/
-        mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+        mv /root/.local/share/godot/export_templates/${{ inputs.godot_version }}.stable ~/.local/share/godot/export_templates/${{ inputs.godot_version }}.stable
 
     - name: Setup Project
       shell: sh
@@ -37,7 +37,7 @@ runs:
     - name: Export Project
       shell: sh
       run: |
-        mkdir -v -p ${{ inputs.export_path }}
+        mkdir -p "${{ inputs.export_path }}"
 
         # Determine file extension based on export format
         FILE_EXT=""
