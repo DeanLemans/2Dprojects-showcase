@@ -35,16 +35,19 @@ jobs:
         include:
           - platform: linux
             export_folder: bin/Linux
-            export_format: Linux
+            export_format: "Linux"
+            file_extension: x86_64 # Add this
           - platform: windows
             export_folder: bin/Windows
-            export_format: Windows
+            export_format: "Windows Desktop"
+            file_extension: exe
           - platform: macos
             export_folder: bin/MacOS
-            export_format: macOS
+            export_format: "macOS"
+            file_extension: zip
           - platform: web
             export_folder: bin/Web
-            export_format: HTML5
+            export_format: "HTML5"
             file_extension: html
       fail-fast: false
       # Continue with other platforms if one fails
