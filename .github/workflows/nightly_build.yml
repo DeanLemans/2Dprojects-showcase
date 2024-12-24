@@ -10,18 +10,24 @@ on:
 
 jobs:
   import-assets:
-    runs-on: ubuntu-latest # Base runner
-    container: barichello/godot-ci:4.3 # Using container for Godot
+    runs-on: ubuntu-latest
+    container: barichello/godot-ci:4.3
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
-          # Remove lfs: true | not needed
+
+      - name: Create required directories
+        run: |
+          mkdir -p ~/.local/share/godot/
+          mkdir -p ~/.config/godot/
+        shell: sh
+
       - name: Import assets
         run: |
-          cd src  # Change to the project directory first
-          godot --headless --verbose --editor --quit
+          cd src
+          godot --headless --editor --quit --verbose
         shell: sh
 
   build:
