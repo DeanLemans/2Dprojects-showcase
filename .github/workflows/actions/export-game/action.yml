@@ -21,13 +21,13 @@ runs:
   using: "composite"
   steps:
     - name: Setup Export Templates
-      shell: bash
+      shell: sh
       run: |
         mkdir -v -p ~/.local/share/godot/export_templates/
         mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
 
     - name: Setup Project
-      shell: bash
+      shell: sh
       run: |
         mkdir -p .godot/editor/
         chmod -R 777 .godot
@@ -35,11 +35,11 @@ runs:
         chmod 666 export_presets.cfg || true
 
     - name: Export Project
-      shell: bash
+      shell: sh
       run: |
         mkdir -v -p ${{ inputs.export_path }}
 
-        #Determine file extension based on export format
+        # Determine file extension based on export format
         FILE_EXT=""
         case "${{ inputs.export_format }}" in
           "Linux") FILE_EXT="x86_64" ;;

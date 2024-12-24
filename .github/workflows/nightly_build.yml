@@ -18,11 +18,10 @@ jobs:
         with:
           fetch-depth: 0
           # Remove lfs: true | not needed
-
       - name: Import assets
         run: |
           godot --headless --verbose --editor --quit
-        shell: bash
+        shell: sh
 
   build:
     needs: import-assets
@@ -71,12 +70,13 @@ jobs:
       - name: Setup export templates
         if: steps.cache-templates.outputs.cache-hit != 'true' && matrix.platform != 'web'
         run: |
+          apt-get update && apt-get install -y curl
           mkdir -p ./templates
           curl -L -o ./templates/templates.tpz "https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_export_templates.tpz"
 
           echo "Downloaded template archive:"
           ls -la ./templates/templates.tpz
-        shell: bash
+        shell: sh
 
       - name: Cache Godot templates
         if: matrix.platform != 'web' # Skip for web as it uses container
@@ -104,12 +104,12 @@ jobs:
       - name: Check Export Status
         if: matrix.platform != 'web'
         run: |
-          if [ "${{ steps.export.outcome }}" == "failure" ]; then
+          if [ "${{ steps.export.outcome }}" = "failure" ]; then
             echo "Export failed, checking logs..."
             cat .godot/logs/editor_*.txt || true
             exit 1
           fi
-        shell: bash
+        shell: sh
 
       - name: Check export results
         run: |
@@ -119,7 +119,7 @@ jobs:
             echo "Error: Export folder is empty!"
             exit 1
           fi
-        shell: bash
+        shell: sh
 
       # Deploy web build to GitHub Pages
       - name: Deploy to GitHub Pages
