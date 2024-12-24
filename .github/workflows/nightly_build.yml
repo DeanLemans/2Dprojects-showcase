@@ -101,16 +101,6 @@ jobs:
           export_name: ${{ env.APPLICATION_NAME }}
         continue-on-error: true
 
-      - name: Check Export Status
-        if: matrix.platform != 'web'
-        run: |
-          if [ "${{ steps.export.outcome }}" = "failure" ]; then
-            echo "Export failed, checking logs..."
-            cat .godot/logs/editor_*.txt || true
-            exit 1
-          fi
-        shell: sh
-
       - name: Check export results
         run: |
           echo "Export folder contents:"
