@@ -20,7 +20,7 @@ jobs:
 
       - name: Import assets
         run: |
-          godot --headless --verbose --export-release
+          godot --headless --verbose
         shell: sh
   build:
     needs: import-assets
