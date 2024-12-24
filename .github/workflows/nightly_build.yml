@@ -18,18 +18,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Create required directories
-        run: |
-          mkdir -p ~/.local/share/godot/
-          mkdir -p ~/.config/godot/
-        shell: sh
-
       - name: Import assets
         run: |
-          cd src
-          godot --headless --editor --quit --verbose
+          godot --headless --verbose --editor --quit
         shell: sh
-
   build:
     needs: import-assets
     runs-on: ubuntu-latest # All builds now use ubuntu-latest
