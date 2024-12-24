@@ -91,7 +91,7 @@ jobs:
 
       # Different export process for web
       - name: Export Game
-        uses: ./.github/actions/export-game
+        uses: ./.github/actions
         id: export
         with:
           godot_version: ${{ env.GODOT_VERSION }}
