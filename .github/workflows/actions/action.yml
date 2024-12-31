@@ -16,6 +16,10 @@ inputs:
   export_name:
     description: "Name of the exported file"
     required: true
+  is_release:
+    description: "Whether to create a release build"
+    required: false
+    default: "false"
 
 runs:
   using: "composite"
@@ -48,7 +52,13 @@ runs:
           "HTML5") FILE_EXT="html" ;;
         esac
 
-        # Export the project
-        godot --headless --verbose \
-          --export-release "${{ inputs.export_format }}" \
-          "${{ inputs.export_path }}/${{ inputs.export_name }}.$FILE_EXT"
+        # Export command with conditional release flag
+        if [ "${{ inputs.is_release }}" = "true" ]; then
+          godot --headless --verbose \
+            --export-release "${{ inputs.export_format }}" \
+            "${{ inputs.export_path }}/${{ inputs.export_name }}.$FILE_EXT"
+        else
+          godot --headless --verbose \
+            --export "${{ inputs.export_format }}" \
+            "${{ inputs.export_path }}/${{ inputs.export_name }}.$FILE_EXT"
+        fi"

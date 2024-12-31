@@ -97,6 +97,7 @@ jobs:
           export_path: ${{ matrix.export_folder }}
           export_format: ${{ matrix.export_format }}
           export_name: ${{ env.APPLICATION_NAME }}
+          is_release: true # Add this line to specify release build
         continue-on-error: true
 
       - name: Check export results
