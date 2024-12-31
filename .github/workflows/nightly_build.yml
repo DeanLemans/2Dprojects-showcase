@@ -20,6 +20,9 @@ jobs:
 
       - name: Import assets
         run: |
+          echo "Project location: $GODOT_PROJECT_LOCATION"
+          echo "Current directory contents:"
+          ls -la
           godot --headless --verbose --quit
         shell: sh
   build:
