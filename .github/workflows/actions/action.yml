@@ -61,4 +61,4 @@ runs:
           godot --headless --verbose \
             --export "${{ inputs.export_format }}" \
             "${{ inputs.export_path }}/${{ inputs.export_name }}.$FILE_EXT"
-        fi"
+        fi
