@@ -5,30 +5,60 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
-  #schedule:
-  #- cron: '0 0 * * *'  # Added scheduled nightly builds
+  workflow_dispatch:
+
+env:
+  GODOT_VERSION: 4.3
+  GODOT_PROJECT_LOCATION: src
+  APPLICATION_NAME: Deans_2D_Projects
+  BUILD_NAME: Deans_2D_Projects-${{ matrix.platform }}-nightly-${{ github.run_number }}
 
 jobs:
   import-assets:
     runs-on: ubuntu-latest
-    container: barichello/godot-ci:4.3
+    container: archlinux:latest
     steps:
+      - name: Set date variable
+        id: get-date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+      - name: Installing dependencies
+        run: pacman -Syu --noconfirm pkgconf git bash yasm python python-pip scons gcc diffutils make wget unzip tar ffmpeg x264 x265 libwebp pulseaudio
+
       - name: Checkout repository
         uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
+          submodules: recursive
+
+      - name: Install yay
+        run: |
+          pacman -S --noconfirm base-devel git sudo
+          useradd -m builder
+          echo "builder ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/builder
+          chown -R builder:builder .
+          su - builder -c 'git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm'
+
+      - name: Prepare Godot
+        run: |
+          wget -q -O godot_linux.zip https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip
+          unzip godot_linux.zip
+
+          wget -q -O godot_export_templates.tpz https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz
+          mkdir -p ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          unzip godot_export_templates.tpz -d ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          mv ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable/templates/* ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable/
+
+          sed -i "s/config\/version=\"[0-9-]\+-alpha\"/config\/version=\"${{ env.date }}-alpha\"/" src/project.godot
 
       - name: Import assets
         run: |
-          echo "Project location: $GODOT_PROJECT_LOCATION"
-          echo "Current directory contents:"
-          ls -la
-          godot --headless --verbose --quit
-        shell: sh
+          ./Godot_v${GODOT_VERSION}-stable_linux.x86_64 --headless --verbose --quit
+
   build:
     needs: import-assets
-    runs-on: ubuntu-latest # All builds now use ubuntu-latest
-    container: barichello/godot-ci:4.3 # Using container for all platforms
+    runs-on: ubuntu-latest
+    container: archlinux:latest
     strategy:
       matrix:
         platform: [linux, windows, macos, web]
@@ -36,7 +66,7 @@ jobs:
           - platform: linux
             export_folder: bin/Linux
             export_format: "Linux"
-            file_extension: x86_64 # Add this
+            file_extension: x86_64
           - platform: windows
             export_folder: bin/Windows
             export_format: "Windows Desktop"
@@ -50,70 +80,49 @@ jobs:
             export_format: "HTML5"
             file_extension: html
       fail-fast: false
-      # Continue with other platforms if one fails
 
     permissions: write-all
-
-    env:
-      GODOT_VERSION: 4.3
-      GODOT_PROJECT_LOCATION: src
-      APPLICATION_NAME: Deans_2D_Projects
-      BUILD_NAME: Deans_2D_Projects-${{ matrix.platform }}-nightly-${{ github.run_number }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
-          # Remove lfs: true | not needed
 
-      # Special handling for web platform
-      - name: Setup export templates
-        if: steps.cache-templates.outputs.cache-hit != 'true' && matrix.platform != 'web'
+      - name: Set date variable
+        id: get-date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+      - name: Installing dependencies
+        run: pacman -Syu --noconfirm pkgconf git bash yasm python python-pip scons gcc diffutils make wget unzip tar ffmpeg x264 x265 libwebp pulseaudio
+
+      - name: Install MinGW for Windows
+        if: matrix.platform == 'windows'
         run: |
-          apt-get update && apt-get install -y curl
-          mkdir -p ./templates
-          curl -L -o ./templates/templates.tpz "https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_export_templates.tpz"
+          pacman -S --noconfirm base-devel git sudo
+          useradd -m builder
+          echo "builder ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/builder
+          chown -R builder:builder .
+          su - builder -c 'git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm'
+          su - builder -c 'yay -S --noconfirm --noprogressbar mingw-w64-x264 mingw-w64-x265 mingw-w64-pkg-config mingw-w64-gcc'
 
-          echo "Downloaded template archive:"
-          ls -la ./templates/templates.tpz
-        shell: sh
+      - name: Prepare Godot
+        run: |
+          wget -q -O godot_linux.zip https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip
+          unzip godot_linux.zip
 
-      - name: Cache Godot templates
-        if: matrix.platform != 'web' # Skip for web as it uses container
-        id: cache-templates
-        uses: actions/cache@v4.2.0
-        with:
-          path: ./templates
-          key: godot-templates-${{ env.GODOT_VERSION }}
+          wget -q -O godot_export_templates.tpz https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz
+          mkdir -p ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          unzip godot_export_templates.tpz -d ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          mv ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable/templates/* ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable/
 
-      - name: Create export directory
-        run: mkdir -p ${{ matrix.export_folder }}
-
-      # Different export process for web
       - name: Export Game
-        uses: ./.github/workflows/actions
-        id: export
-        with:
-          godot_version: ${{ env.GODOT_VERSION }}
-          relative_project_path: ${{ env.GODOT_PROJECT_LOCATION }}
-          export_path: ${{ matrix.export_folder }}
-          export_format: ${{ matrix.export_format }}
-          export_name: ${{ env.APPLICATION_NAME }}
-          is_release: true # Add this line to specify release build
-        continue-on-error: true
-
-      - name: Check export results
         run: |
-          echo "Export folder contents:"
-          ls -la ${{ matrix.export_folder }}
-          if [ -z "$(ls -A ${{ matrix.export_folder }})" ]; then
-            echo "Error: Export folder is empty!"
-            exit 1
-          fi
-        shell: sh
+          mkdir -p "${{ matrix.export_folder }}"
+          ./Godot_v${GODOT_VERSION}-stable_linux.x86_64 --headless --verbose \
+            --export-release "${{ matrix.export_format }}" \
+            "${{ matrix.export_folder }}/${{ env.APPLICATION_NAME }}.${{ matrix.file_extension }}"
 
-      # Deploy web build to GitHub Pages
       - name: Deploy to GitHub Pages
         if: matrix.platform == 'web' && github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         uses: peaceiris/actions-gh-pages@v4.0.0
@@ -137,7 +146,7 @@ jobs:
           draft: false
           prerelease: true
           files: |
-            ${{ env.BUILD_NAME }}.${{ matrix.file_extension }}
+            ${{ matrix.export_folder }}/${{ env.APPLICATION_NAME }}.${{ matrix.file_extension }}
           fail_on_unmatched_files: true
           body: |
             Build generated from commit: ${{ github.sha }}
