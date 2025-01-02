@@ -11,7 +11,6 @@ env:
   GODOT_VERSION: 4.3
   GODOT_PROJECT_LOCATION: src
   APPLICATION_NAME: Deans_2D_Projects
-  BUILD_NAME: Deans_2D_Projects-${{ matrix.platform }}-nightly-${{ github.run_number }}
 
 jobs:
   import-assets:
@@ -82,6 +81,9 @@ jobs:
       fail-fast: false
 
     permissions: write-all
+
+    env:
+      BUILD_NAME: Deans_2D_Projects-${{ matrix.platform }}-nightly-${{ github.run_number }}
 
     steps:
       - name: Checkout repository
