@@ -21,8 +21,8 @@ jobs:
         id: get-date
         run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
-      - name: Installing dependencies
-        run: pacman -Syu --noconfirm pkgconf git bash yasm python python-pip scons gcc diffutils make wget unzip tar ffmpeg x264 x265 libwebp pulseaudio
+      - name: Install dependencies
+        run: pacman -Syu --noconfirm git bash yasm python python-pip scons gcc diffutils make wget unzip tar mingw-w64
 
       - name: Checkout repository
         uses: actions/checkout@v4.2.2
@@ -68,7 +68,7 @@ jobs:
             file_extension: x86_64
           - platform: windows
             export_folder: bin/Windows
-            export_format: "Windows Desktop"
+            export_format: "Windows"
             file_extension: exe
           - platform: macos
             export_folder: bin/MacOS
@@ -76,7 +76,7 @@ jobs:
             file_extension: zip
           - platform: web
             export_folder: bin/Web
-            export_format: "HTML5"
+            export_format: "Web"
             file_extension: html
       fail-fast: false
 
@@ -86,27 +86,18 @@ jobs:
       BUILD_NAME: Deans_2D_Projects-${{ matrix.platform }}-nightly-${{ github.run_number }}
 
     steps:
+      - name: Install dependencies
+        run: pacman -Syu --noconfirm pkgconf git bash yasm python python-pip scons gcc diffutils make wget unzip tar mingw-w64
+
       - name: Checkout repository
         uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
+          submodules: recursive
 
       - name: Set date variable
         id: get-date
         run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-
-      - name: Installing dependencies
-        run: pacman -Syu --noconfirm pkgconf git bash yasm python python-pip scons gcc diffutils make wget unzip tar ffmpeg x264 x265 libwebp pulseaudio
-
-      - name: Install MinGW for Windows
-        if: matrix.platform == 'windows'
-        run: |
-          pacman -S --noconfirm base-devel git sudo
-          useradd -m builder
-          echo "builder ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/builder
-          chown -R builder:builder .
-          su - builder -c 'git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm'
-          su - builder -c 'yay -S --noconfirm --noprogressbar mingw-w64-x264 mingw-w64-x265 mingw-w64-pkg-config mingw-w64-gcc'
 
       - name: Prepare Godot
         run: |
@@ -143,7 +134,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: nightly-${{ github.run_number }}
+          tag_name: Build-Version-${{ github.run_number }}
           name: Build ${{ github.run_number }}
           draft: false
           prerelease: true
