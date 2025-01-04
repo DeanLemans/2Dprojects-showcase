@@ -20,7 +20,8 @@ jobs:
   build:
     timeout-minutes: 45
     runs-on: ubuntu-latest
-    container: archlinux:latest
+    container:
+      image: archlinux:latest
     strategy:
       matrix:
         platform: [linux, windows, macos, web]
