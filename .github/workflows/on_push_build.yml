@@ -50,7 +50,7 @@ jobs:
       - name: Import assets
         run: |
           cd ${GODOT_PROJECT_LOCATION}
-          ../Godot_v${GODOT_VERSION}-stable_linux.x86_64 --headless --verbose --quitt
+          ../Godot_v${GODOT_VERSION}-stable_linux.x86_64 --headless --verbose --quit
 
       - name: Set permissions
         run: |
