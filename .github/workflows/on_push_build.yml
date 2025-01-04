@@ -9,7 +9,7 @@ on:
 
 env:
   GODOT_VERSION: 4.3
-  GODOT_PROJECT_LOCATION: src/project.godot
+  GODOT_PROJECT_LOCATION: src
   APPLICATION_NAME: Deans_2D_Projects
   EXPORT_FOLDER_LINUX: bin/Linux
   EXPORT_FOLDER_Windows: bin/Windows
