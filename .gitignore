@@ -7,9 +7,6 @@
 # Imported translations (automatically generated from CSV files)
 *.translation
 
-# Build directories
-/build/
-
 # Editor-specific files
 .DS_Store
 .vscode/

@@ -54,7 +54,7 @@ jobs:
 
       - name: Import assets
         run: |
-          ./Godot_v${GODOT_VERSION}-stable_linux.x86_64 --headless --verbose --quit
+          ./Godot_v${GODOT_VERSION}-stable_linux.x86_64 --headless --verbose "${GODOT_PROJECT_LOCATION}" --quit
 
   build:
     needs: import-assets
