@@ -55,7 +55,7 @@ jobs:
       - name: Import assets
         run: |
           cd ${GODOT_PROJECT_LOCATION}
-          ../Godot_v${GODOT_VERSION}-stable_linux.x86_64 --headless --verbose --quit
+          ../Godot_v${GODOT_VERSION}-stable_linux.x86_64 --no-window --verbose --quit
 
       - name: Set permissions
         run: |
@@ -123,7 +123,7 @@ jobs:
         run: |
           mkdir -p "${{ matrix.export_folder }}"
           cd ${GODOT_PROJECT_LOCATION}
-          ../Godot_v${GODOT_VERSION}-stable_linux.x86_64 --headless --verbose \
+          ../Godot_v${GODOT_VERSION}-stable_linux.x86_64 --no-window --verbose \
             --export-release "${{ matrix.export_format }}" \
             "../${{ matrix.export_folder }}/${{ env.APPLICATION_NAME }}.${{ matrix.file_extension }}"
 
