@@ -74,11 +74,12 @@ jobs:
 
       - name: Export Game
         run: |
-          mkdir -p "${{ matrix.export_folder }}"
+          mkdir -v -p "${{ matrix.export_folder }}"
+          EXPORT_DIR="$(readlink -f "${{ matrix.export_folder }}")"
           cd ${GODOT_PROJECT_LOCATION}
           ../Godot_v${GODOT_VERSION}-stable_linux.x86_64 --headless --verbose \
             --export-release "${{ matrix.export_format }}" \
-            "../${{ matrix.export_folder }}/${{ env.APPLICATION_NAME }}.${{ matrix.file_extension }}"
+            "$EXPORT_DIR/${{ env.APPLICATION_NAME }}.${{ matrix.file_extension }}"
 
       - name: Deploy to GitHub Pages
         if: matrix.platform == 'web' && github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
