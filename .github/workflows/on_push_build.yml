@@ -32,14 +32,6 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
-      - name: Install yay
-        run: |
-          pacman -S --noconfirm base-devel git sudo
-          useradd -m builder
-          echo "builder ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/builder
-          chown -R builder:builder .
-          su - builder -c 'git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm'
-
       - name: Prepare Godot
         run: |
           wget -q -O godot_linux.zip https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip
@@ -97,7 +89,7 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
-      - name: Set date variable
+      - name: Setting variables
         id: get-date
         run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
