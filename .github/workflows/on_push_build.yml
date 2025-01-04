@@ -47,6 +47,11 @@ jobs:
 
           sed -i "s/config\/version=\"[0-9-]\+-alpha\"/config\/version=\"${{ env.date }}-alpha\"/" src/project.godot
 
+      - name: Create .import directory
+        run: |
+          mkdir -p "${GODOT_PROJECT_LOCATION}/.import"
+          chmod -R 777 "${GODOT_PROJECT_LOCATION}/.import"
+
       - name: Import assets
         run: |
           cd ${GODOT_PROJECT_LOCATION}
