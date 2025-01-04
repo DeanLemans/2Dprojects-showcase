@@ -8,7 +8,6 @@
 *.translation
 
 # Build directories
-/bin/
 /build/
 
 # Editor-specific files
