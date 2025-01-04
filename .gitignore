@@ -2,6 +2,7 @@
 .godot/
 !export_presets.cfg
 !project.godot
+!buildCompilation.build
 
 # Godot-specific ignores
 .import/
