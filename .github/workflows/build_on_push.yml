@@ -66,11 +66,11 @@ jobs:
         run: |
           wget -q -O godot_linux.zip https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip
           unzip godot_linux.zip
-
           wget -q -O godot_export_templates.tpz https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz
           mkdir -p ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
           unzip godot_export_templates.tpz -d ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
           mv ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable/templates/* ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable/
+          sed -i "s/config\/version=\"[0-9-]\+-alpha\"/config\/version=\"${{ env.date }}-alpha\"/" src/project.godot
 
       - name: Export Game
         run: |
