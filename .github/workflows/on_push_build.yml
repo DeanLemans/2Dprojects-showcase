@@ -12,7 +12,9 @@ env:
   GODOT_PROJECT_LOCATION: src
   APPLICATION_NAME: Deans_2D_Projects
   EXPORT_FOLDER_LINUX: bin/Linux
-  EXPORT_FOLDER_Windows: bin/Windows
+  EXPORT_FOLDER_WINDOWS: bin/Windows
+  EXPORT_FOLDER_WEB: bin/Web
+  EXPORT_FOLDER_MACOS: bin/MacOS
 
 jobs:
   import-assets:
@@ -47,7 +49,8 @@ jobs:
 
       - name: Import assets
         run: |
-          ./Godot_v${GODOT_VERSION}-stable_linux.x86_64 --headless --verbose "${GODOT_PROJECT_LOCATION}" --quit
+          cd ${GODOT_PROJECT_LOCATION}
+          ../Godot_v${GODOT_VERSION}-stable_linux.x86_64 --headless --verbose --quitt
 
       - name: Set permissions
         run: |
@@ -114,9 +117,10 @@ jobs:
       - name: Export Game
         run: |
           mkdir -p "${{ matrix.export_folder }}"
-          ./Godot_v${GODOT_VERSION}-stable_linux.x86_64 --headless --verbose \
+          cd ${GODOT_PROJECT_LOCATION}
+          ../Godot_v${GODOT_VERSION}-stable_linux.x86_64 --headless --verbose \
             --export-release "${{ matrix.export_format }}" \
-            "${{ matrix.export_folder }}/${{ env.APPLICATION_NAME }}.${{ matrix.file_extension }}"
+            "../${{ matrix.export_folder }}/${{ env.APPLICATION_NAME }}.${{ matrix.file_extension }}"
 
       - name: Deploy to GitHub Pages
         if: matrix.platform == 'web' && github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
