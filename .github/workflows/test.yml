@@ -1,4 +1,4 @@
-  name: Build on Push
+name: Build on Push
 run-name: Building version ${{ github.run_number }}
 on:
   push:
@@ -6,10 +6,8 @@ on:
   pull_request:
     branches: [main, master]
   workflow_dispatch:
-  
 
-  
-  env:
+env:
   GODOT_VERSION: 4.3
   GODOT_PROJECT_LOCATION: src
   APPLICATION_NAME: Deans_2D_Projects
@@ -26,9 +24,9 @@ jobs:
     steps:
       - name: Set variables
         run: |
-        echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-        echo "MAIN_FOLDER=$(pwd)" >> $GITHUB_ENV
-		
+          echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+          echo "MAIN_FOLDER=$(pwd)" >> $GITHUB_ENV
+
       - name: Install dependencies
         run: pacman -Syu --noconfirm git bash yasm python python-pip scons gcc diffutils make wget unzip tar mingw-w64 #pkgconf
 
@@ -46,35 +44,32 @@ jobs:
           unzip godot_export_templates.tpz -d ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
           mv ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable/templates/* ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable/
           sed -i "s/config\/version=\"[0-9-]\+-alpha\"/config\/version=\"${{ env.date }}-alpha\"/" src/project.godot
-		  
 
       - name: Building Linux
         run: |
-            mkdir -p ${{ env.EXPORT_FOLDER_LINUX }}
-            ./Godot_v{{ env.GODOT_VERSION }}-stable_linux.x86_64 --import ${{ env.GODOT_PROJECT_LOCATION }} --quiet --headless --export-release Linux ${{ env.MAIN_FOLDER}} /${{ EXPORT_FOLDER_LINUX }}/${{ env.APPLICATION_NAME }}.x86_64
-            chmod +x ${{ EXPORT_FOLDER_LINUX }}/${{ env.APPLICATION_NAME }}.sh
-            chmod +x ${{ EXPORT_FOLDER_LINUX }}/${{ env.APPLICATION_NAME }}.86_64
-			
+          mkdir -p ${{ env.EXPORT_FOLDER_LINUX }}
+          ./Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64 --import ${{ env.GODOT_PROJECT_LOCATION }} --quiet --headless --export-release "Linux" "${{ env.MAIN_FOLDER }}/${{ env.EXPORT_FOLDER_LINUX }}/${{ env.APPLICATION_NAME }}.x86_64"
+          chmod +x ${{ env.EXPORT_FOLDER_LINUX }}/${{ env.APPLICATION_NAME }}.x86_64
+
       - name: Tar files
-        run: tar -cvf ${{ env.APPLICATION_NAME }} _linux_${{env.date }}.tar ${{ env.EXPORT_FOLDER_LINUX }}
-			
-      - name: uploading gdextension artifacts
+        run: tar -cvf "${{ env.APPLICATION_NAME }}_linux_${{ env.date }}.tar" -C ${{ env.EXPORT_FOLDER_LINUX }} .
+
+      - name: Uploading Linux artifact
         uses: actions/upload-artifact@v4.5.0
         with:
-            name: ${{ env.	APPLICATION_NAME }}_linux_${{ env.DATE }}.tar
-            path: ${{ env.	APPLICATION_NAME }}_linux_${{ env.DATE }}.tar
+          name: ${{ env.APPLICATION_NAME }}_linux_${{ env.date }}.tar
+          path: ${{ env.APPLICATION_NAME }}_linux_${{ env.date }}.tar
 
+      - name: Building Windows
+        run: |
+          mkdir -p ${{ env.EXPORT_FOLDER_WINDOWS }}
+          ./Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64 --import ${{ env.GODOT_PROJECT_LOCATION }} --quiet --headless --export-release "Windows" "${{ env.MAIN_FOLDER }}/${{ env.EXPORT_FOLDER_WINDOWS }}/${{ env.APPLICATION_NAME }}.exe"
 
-      - name: Building Windows	
-        run | 
-            mkdir -p ${{env.EXPORT_FOLDER_WINDOWS }}
-            ./Godot_v{{ env.GODOT_VERSION }}-stable_linux.x86_64 --import ${{ env.GODOT_PROJECT_LOCATION }} --quiet --headless --export-release Windows ${{ env.MAIN_FOLDER}} /${{ EXPORT_FOLDER_WINDOWS }}/${{ env.APPLICATION_NAME }}.exe
-     
-     - name: uploading gdextension artifacts
+      - name: Uploading Windows artifact
         uses: actions/upload-artifact@v4.5.0
         with:
-            name: ${{ env.	APPLICATION_NAME }}_windows_${{ env.DATE }}
-            path: ${{ env.EXPORT_FOLDER_WINDOWS }}/
+          name: ${{ env.APPLICATION_NAME }}_windows_${{ env.date }}.exe
+          path: ${{ env.EXPORT_FOLDER_WINDOWS }}/${{ env.APPLICATION_NAME }}.exe
 
 
 
