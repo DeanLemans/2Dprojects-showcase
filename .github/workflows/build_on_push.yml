@@ -28,11 +28,11 @@ jobs:
         include:
           - platform: linux
             export_folder: bin/Linux
-            export_format: "Linux"
+            export_format: "Linux/X11"
             file_extension: x86_64
           - platform: windows
             export_folder: bin/Windows
-            export_format: "Windows"
+            export_format: "Windows Desktop"
             file_extension: exe
           - platform: macos
             export_folder: bin/MacOS
@@ -40,7 +40,7 @@ jobs:
             file_extension: zip
           - platform: web
             export_folder: bin/Web
-            export_format: "Web"
+            export_format: "HTML5"
             file_extension: html
       fail-fast: false
 
@@ -77,15 +77,7 @@ jobs:
           mkdir -v -p "${{ matrix.export_folder }}"
           EXPORT_DIR="$(readlink -f "${{ matrix.export_folder }}")"
           cd ${GODOT_PROJECT_LOCATION}
-          if [ "${{ matrix.platform }}" = "linux" ]; then
-            ../Godot_v${GODOT_VERSION}-stable_linux.x86_64 --headless --verbose \
-              --export-release "${{ matrix.export_format }}" \
-              "$EXPORT_DIR/${{ env.APPLICATION_NAME }}.${{ matrix.file_extension }}"
-          else
-            ../Godot_v${GODOT_VERSION}-stable_linux.x86_64 --verbose \
-              --export-release "${{ matrix.export_format }}" \
-              "$EXPORT_DIR/${{ env.APPLICATION_NAME }}.${{ matrix.file_extension }}"
-          fi
+          ../Godot_v${GODOT_VERSION}-stable_linux.x86_64 --headless --export-release "${{ matrix.export_format }}" "$EXPORT_DIR/${{ env.APPLICATION_NAME }}.${{ matrix.file_extension }}"
 
       - name: Deploy to GitHub Pages
         if: matrix.platform == 'web' && github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
@@ -128,3 +120,4 @@ jobs:
           path: ${{ matrix.export_folder }}
           retention-days: 7
           if-no-files-found: error
+          
