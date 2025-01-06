@@ -28,7 +28,7 @@ jobs:
       - name: Windows Build
         run: |
           mkdir -v -p bin/Windows
-          EXPORT_DIR="$(readlink -f build)"
+          EXPORT_DIR="$(readlink -f bin)"
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "Windows Desktop" "$EXPORT_DIR/Windows/$EXPORT_NAME.exe"
       - name: Upload Artifact
@@ -53,8 +53,8 @@ jobs:
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
       - name: Linux Build
         run: |
-          mkdir -v -p build/Linux
-          EXPORT_DIR="$(readlink -f build)"
+          mkdir -v -p bin/Linux
+          EXPORT_DIR="$(readlink -f bin)"
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "Linux/X11" "$EXPORT_DIR/Linux/$EXPORT_NAME.x86_64"
       - name: Upload Artifact
@@ -80,7 +80,7 @@ jobs:
       - name: Web Build
         run: |
           mkdir -v -p bin/Web
-          EXPORT_DIR="$(readlink -f build)"
+          EXPORT_DIR="$(readlink -f bin)"
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "Web" "$EXPORT_DIR/Web/index.html"
       - name: Upload Artifact
@@ -114,7 +114,7 @@ jobs:
       - name: Mac Build
         run: |
           mkdir -v -p bin/MacOS
-          EXPORT_DIR="$(readlink -f build)"
+          EXPORT_DIR="$(readlink -f bin)"
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "macOS" "$EXPORT_DIR/MacOS/$EXPORT_NAME.zip"
       - name: Upload Artifact
