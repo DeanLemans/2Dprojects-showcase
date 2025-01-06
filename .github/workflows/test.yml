@@ -6,7 +6,7 @@ on: push
 env:
   GODOT_VERSION: 4.3
   EXPORT_NAME: test-project
-  PROJECT_PATH: test-project/src
+  PROJECT_PATH: src
 
 jobs:
   export-windows:
