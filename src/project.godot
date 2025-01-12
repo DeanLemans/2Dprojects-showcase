@@ -12,22 +12,11 @@ config_version=5
 
 config/name="2dProject-showcase"
 config/version="test"
-run/main_scene="res://main_menu_with_animations.tscn"
+run/main_scene="res://2DPlatformer/Scenes/mainMenu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 run/low_processor_mode=true
 boot_splash/image="res://traditional-dark.png"
 config/icon="res://icon.svg"
-
-[autoload]
-
-AppConfig="*res://addons/maaacks_menus_template/base/scenes/autoloads/app_config.tscn"
-SceneLoader="*res://addons/maaacks_menus_template/base/scenes/autoloads/scene_loader.tscn"
-ProjectMusicController="*res://addons/maaacks_menus_template/base/scenes/autoloads/project_music_controller.tscn"
-ProjectUISoundController="*res://addons/maaacks_menus_template/base/scenes/autoloads/project_ui_sound_controller.tscn"
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/maaacks_menus_template/plugin.cfg")
 
 [input]
 
