@@ -5,7 +5,7 @@ on: push
 
 env:
   GODOT_VERSION: 4.3
-  EXPORT_NAME: test-project
+  EXPORT_NAME: 2dproject-showcase
   PROJECT_PATH: src
 
 jobs:
@@ -122,4 +122,3 @@ jobs:
         with:
           name: mac
           path: bin/MacOS
-          
