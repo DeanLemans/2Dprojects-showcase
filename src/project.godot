@@ -52,10 +52,6 @@ down={
 ]
 }
 
-[internationalization]
-
-locale/translations=PackedStringArray("res://addons/maaacks_menus_template/base/translations/menus_translations.en.translation", "res://addons/maaacks_menus_template/base/translations/menus_translations.fr.translation")
-
 [maaacks_menus_template]
 
 disable_plugin_dialogues=true
