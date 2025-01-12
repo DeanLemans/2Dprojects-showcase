@@ -1,2 +1,0 @@
-# 2dproject-showcase
- 
