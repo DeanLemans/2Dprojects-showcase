@@ -6,7 +6,7 @@ on: push
 env:
   GODOT_VERSION: 4.3
   EXPORT_NAME: 2dproject-showcase
-  PROJECT_PATH: src\project.godot
+  PROJECT_PATH: src/project.godot
 
 jobs:
   export-windows:
