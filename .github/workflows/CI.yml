@@ -2,13 +2,22 @@ name: "CI"
 on:
   push:
     branches: [main, master]
+    paths-ignore:
+      - "README.md"
   pull_request:
     branches: [main, master]
+    paths-ignore:
+      - "README.md"
 
 env:
   GODOT_VERSION: 4.3
   EXPORT_NAME: ci
   PROJECT_PATH: src
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   export-windows:
@@ -146,7 +155,7 @@ jobs:
 
   create-release:
     name: Create Release
-    needs: [export-windows, export-linux, export-mac, export-web]
+    needs: [export-windows, export-linux, export-mac, export-web, deploy-web]
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:

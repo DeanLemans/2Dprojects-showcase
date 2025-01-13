@@ -1,8 +1,7 @@
-goal of projetcs is as name says and to learn how ci and github action works
+![Build Status](https://github.com/DeanLemans/2Dprojects-showcase/workflows/CI/badge.svg)
+
+goal of this project is to learn how use github actions and worksflow.
 
 so:
-automatic github releases for windowns, mac and linux/x11.
-automatically exporting for web: for now automatic githubpages is fine but could also add itch.io with butler?
-
-currently build is:
-![Build Status](https://github.com/DeanLemans/2Dprojects-showcase/workflows/CI/badge.svg)
+automatic github export and releases for windowns, mac and linux/x11.
+automatic export for web: for now automatic github-pages (but could also add itch.io with butler?)
