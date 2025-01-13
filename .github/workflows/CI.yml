@@ -11,7 +11,9 @@ on:
 
 env:
   GODOT_VERSION: 4.3
-  EXPORT_NAME: ci
+  WINDOWS_EXPORT_NAME: windows
+  LINUX_EXPORT_NAME: linux
+  MAC_EXPORT_NAME: mac
   PROJECT_PATH: src
 
 permissions:
@@ -42,7 +44,7 @@ jobs:
           mkdir -v -p build/windows
           EXPORT_DIR="$(readlink -f build)"
           cd $PROJECT_PATH
-          godot --headless --verbose --export-release "Windows Desktop" "$EXPORT_DIR/windows/$EXPORT_NAME.exe"
+          godot --headless --verbose --export-release "Windows Desktop" "$EXPORT_DIR/windows/$WINDOWS_EXPORT_NAME.exe"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
@@ -72,7 +74,7 @@ jobs:
           mkdir -v -p build/linux
           EXPORT_DIR="$(readlink -f build)"
           cd $PROJECT_PATH
-          godot --headless --verbose --export-release "Linux" "$EXPORT_DIR/linux/$EXPORT_NAME.x86_64"
+          godot --headless --verbose --export-release "Linux" "$EXPORT_DIR/linux/$LINUX_EXPORT_NAME.x86_64"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
@@ -144,7 +146,7 @@ jobs:
           mkdir -v -p build/mac
           EXPORT_DIR="$(readlink -f build)"
           cd $PROJECT_PATH
-          godot --headless --verbose --export-release "macOS" "$EXPORT_DIR/mac/$EXPORT_NAME.zip"
+          godot --headless --verbose --export-release "macOS" "$EXPORT_DIR/mac/$MAC_EXPORT_NAME.zip"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
@@ -187,9 +189,9 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            build/windows/${{ env.EXPORT_NAME }}.exe
-            build/linux/${{ env.EXPORT_NAME }}.x86_64
-            build/mac/${{ env.EXPORT_NAME }}.zip
+            build/windows/${{ env.WINDOWS_EXPORT_NAME }}.exe
+            build/linux/${{ env.LINUX_EXPORT_NAME }}.x86_64
+            build/mac/${{ env.MAC_EXPORT_NAME }}.zip
           fail_on_unmatched_files: true
           body: |
             Commit Message:
