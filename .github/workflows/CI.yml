@@ -194,8 +194,9 @@ jobs:
             build/mac/${{ env.MAC_EXPORT_NAME }}.zip
           fail_on_unmatched_files: true
           body: |
-            Commit Message:
+            Commit Description:
             ${{ github.event.head_commit.message }}
+
 
             Build generated from commit: ${{ github.sha }}
             Branch: ${{ github.ref_name }}
