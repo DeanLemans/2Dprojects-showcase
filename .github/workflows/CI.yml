@@ -173,7 +173,7 @@ jobs:
           tag_name: Build-Version-${{ github.run_number }}
           name: Build ${{ github.run_number }}
           draft: false
-          prerelease: true
+          prerelease: false
           files: |
             build/windows/${{ env.EXPORT_NAME }}.exe
             build/linux/${{ env.EXPORT_NAME }}.x86_64
@@ -181,8 +181,7 @@ jobs:
           fail_on_unmatched_files: true
           body: |
             Build generated from commit: ${{ github.sha }}
-            Commit Title: ${{ github.event.head_commit.message }}
-            Commit Description:
-            ${{ github.event.head_commit.description || 'No description provided' }}
+            Commit Message:
+            ${{ github.event.head_commit.message }}
             Branch: ${{ github.ref_name }}
             Timestamp: ${{ github.event.head_commit.timestamp }}
