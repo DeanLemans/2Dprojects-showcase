@@ -5,7 +5,7 @@ on: push
 
 env:
   GODOT_VERSION: 4.3
-  EXPORT_NAME: 2dproject-showcase
+  EXPORT_NAME: nightly
   PROJECT_PATH: src
 
 jobs:
