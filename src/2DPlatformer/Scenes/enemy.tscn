@@ -6,23 +6,18 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b7sme"]
 shader = ExtResource("2_0fs3u")
-shader_parameter/top = 1.0
-shader_parameter/bottom = 0.0
-shader_parameter/blob_threshold = 1.5
-shader_parameter/random_seed = 0.1
-shader_parameter/blob_scale_x = 3.0
-shader_parameter/blob_scale_y = 1.0
-shader_parameter/blobs_enabled = true
-shader_parameter/blob_speed = 3.0
-shader_parameter/background_edge = Color(0.1, 0, 0.2, 1)
-shader_parameter/background_center = Color(0.5, 0, 0.8, 1)
-shader_parameter/background_alpha = 0.5
-shader_parameter/blob_top = Color(1, 0.4, 0.4, 1)
-shader_parameter/blob_bottom = Color(1, 1, 0.3, 1)
-shader_parameter/blob_alpha = 1.0
+shader_parameter/spread = 0.6
+shader_parameter/cutoff = 0.2
+shader_parameter/size = 0.8
+shader_parameter/speed = 1.0
+shader_parameter/ray1_density = 8.0
+shader_parameter/ray2_density = 30.0
+shader_parameter/ray2_intensity = 0.3
+shader_parameter/core_intensity = 1.5
+shader_parameter/hdr = false
+shader_parameter/seed = 10.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v2n15"]
-size = Vector2(26, 26)
+[sub_resource type="CircleShape2D" id="CircleShape2D_ryhg6"]
 
 [sub_resource type="Animation" id="Animation_rt6fb"]
 length = 3.0
@@ -75,8 +70,8 @@ scale = Vector2(0.42, 0.42)
 texture = ExtResource("2_r3gp2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-scale = Vector2(0.95, 0.95)
-shape = SubResource("RectangleShape2D_v2n15")
+scale = Vector2(1.1, 1.1)
+shape = SubResource("CircleShape2D_ryhg6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
