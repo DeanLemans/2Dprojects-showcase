@@ -1,12 +1,16 @@
-[gd_scene load_steps=10 format=4 uid="uid://gyq2iy601qsb"]
+[gd_scene load_steps=12 format=4 uid="uid://gyq2iy601qsb"]
 
 [ext_resource type="Script" path="res://2DPlatformer/scripts/tutorial.gd" id="1_cjn1x"]
 [ext_resource type="TileSet" uid="uid://bn4p181ue1q7c" path="res://2DPlatformer/Scenes/prefabs.tres" id="2_8xe6e"]
 [ext_resource type="Texture2D" uid="uid://ov375lxogarp" path="res://2DPlatformer/Assets/template background 3.png" id="2_iwb26"]
 [ext_resource type="PackedScene" uid="uid://dhu4ikmaqqcuc" path="res://2DPlatformer/Scenes/player.tscn" id="3_oqqx1"]
+[ext_resource type="Shader" path="res://2DPlatformer/Scenes/BetterText.gdshader" id="4_75j2e"]
 [ext_resource type="PackedScene" uid="uid://di1q0naj5lgbi" path="res://2DPlatformer/Scenes/enemy.tscn" id="4_yk2k1"]
 [ext_resource type="Theme" uid="uid://bq52vocemd2d3" path="res://2DPlatformer/Scenes/UI prefab.tres" id="6_1feq2"]
 [ext_resource type="PackedScene" uid="uid://nxixuukadc3u" path="res://2DPlatformer/Scenes/level_complete.tscn" id="6_idpld"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0xm4y"]
+shader = ExtResource("4_75j2e")
 
 [sub_resource type="Gradient" id="Gradient_mv6f0"]
 
@@ -17,13 +21,14 @@ fill_to = Vector2(1, 1)
 [node name="tutorial" type="Node2D"]
 script = ExtResource("1_cjn1x")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_left = -503.0
-offset_top = -320.0
-offset_right = 281.0
-offset_bottom = 144.0
+[node name="BG1" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0, 0)
+repeat_size = Vector2(64, 64)
+
+[node name="background1" type="Sprite2D" parent="BG1"]
+use_parent_material = true
 texture = ExtResource("2_iwb26")
-stretch_mode = 1
+centered = false
 
 [node name="Layer0" type="TileMapLayer" parent="."]
 use_parent_material = true
@@ -32,37 +37,29 @@ tile_map_data = PackedByteArray("AADs/wEAAAACAAYAAADs/wIAAAADAAYAAADt/wEAAAADAAY
 tile_set = ExtResource("2_8xe6e")
 
 [node name="Control" type="Control" parent="."]
+material = SubResource("ShaderMaterial_0xm4y")
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme = ExtResource("6_1feq2")
 
-[node name="Label" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = -487.0
-offset_top = -174.0
-offset_right = -357.0
-offset_bottom = -145.0
-text = "WASD too move"
-justification_flags = 128
-
 [node name="Label1" type="Label" parent="Control"]
 layout_mode = 0
-offset_left = -63.0
+offset_left = -84.0
 offset_top = 81.0
-offset_right = 82.0
+offset_right = 109.0
 offset_bottom = 110.0
-text = "touch trump = die"
+text = "don't touch the Eldritch!"
 
 [node name="Label2" type="Label" parent="Control"]
 layout_mode = 0
-offset_left = 139.0
-offset_top = -219.0
-offset_right = 277.0
-offset_bottom = -158.0
-text = "Touch this object 
-too win!"
+offset_left = 138.0
+offset_top = -239.0
+offset_right = 276.0
+offset_bottom = -178.0
+text = "Touch this
+to win!"
 horizontal_alignment = 1
 
 [node name="Label3" type="Label" parent="Control"]
@@ -71,8 +68,8 @@ offset_left = -344.0
 offset_top = -190.0
 offset_right = -221.0
 offset_bottom = -135.0
-text = "press spacebar 
-1 time to jump"
+text = "press spacebar
+ to jump"
 horizontal_alignment = 1
 
 [node name="Label4" type="Label" parent="Control"]
@@ -85,33 +82,20 @@ text = "fall and then jump!"
 horizontal_alignment = 1
 
 [node name="Player" parent="." instance=ExtResource("3_oqqx1")]
-position = Vector2(-478, -127)
-
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
-remote_path = NodePath("../../Camera2D")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-478, -127)
-zoom = Vector2(2, 2)
-process_callback = 0
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-drag_left_margin = 0.15
-drag_top_margin = 0.15
-drag_right_margin = 0.15
-drag_bottom_margin = 0.15
+position = Vector2(-414, -33)
 
 [node name="Enemy" parent="." instance=ExtResource("4_yk2k1")]
 position = Vector2(-101, 12)
 
-[node name="levelComplete" parent="." instance=ExtResource("6_idpld")]
-position = Vector2(209, -137)
-
 [node name="Enemy2" parent="." instance=ExtResource("4_yk2k1")]
 position = Vector2(-99, 121)
 
+[node name="levelComplete" parent="." instance=ExtResource("6_idpld")]
+position = Vector2(209, -137)
+
 [node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(209, -136)
+position = Vector2(223, -121)
 scale = Vector2(2.25, 1.73438)
+energy = 2.0
+blend_mode = 2
 texture = SubResource("GradientTexture2D_q2xu0")
