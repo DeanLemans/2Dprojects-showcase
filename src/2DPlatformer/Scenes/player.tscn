@@ -471,7 +471,6 @@ limit_smoothed = true
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 drag_horizontal_enabled = true
-drag_vertical_enabled = true
 drag_left_margin = 0.15
 drag_top_margin = 0.15
 drag_right_margin = 0.15
