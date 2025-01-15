@@ -6,7 +6,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b7sme"]
 shader = ExtResource("2_0fs3u")
-shader_parameter/spread = 0.6
+shader_parameter/spread = 0.55
 shader_parameter/cutoff = 0.2
 shader_parameter/size = 0.8
 shader_parameter/speed = 1.0
@@ -66,7 +66,7 @@ script = ExtResource("1_0pcf7")
 [node name="TemplateBackground1" type="Sprite2D" parent="Area2D"]
 material = SubResource("ShaderMaterial_b7sme")
 position = Vector2(5.96046e-08, 5.96046e-08)
-scale = Vector2(0.42, 0.42)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_r3gp2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
