@@ -467,7 +467,6 @@ shape = SubResource("RectangleShape2D_b2kxt")
 debug_color = Color(0.462745, 0.184314, 0, 0.419608)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
 limit_smoothed = true
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
