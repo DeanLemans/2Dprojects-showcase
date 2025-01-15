@@ -17,6 +17,12 @@ run/low_processor_mode=true
 boot_splash/image="res://traditional-dark.png"
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/extend_to_title=true
+window/energy_saving/keep_screen_on.editor_hint=true
+window/stretch/mode="viewport"
+
 [input]
 
 jump={
