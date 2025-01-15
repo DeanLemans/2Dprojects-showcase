@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://di1q0naj5lgbi"]
 
 [ext_resource type="Script" path="res://2DPlatformer/scripts/enemy.gd" id="1_0pcf7"]
-[ext_resource type="Shader" path="res://2DPlatformer/enemy.gdshader" id="2_0fs3u"]
+[ext_resource type="Shader" path="res://2DPlatformer/Assets/enemy.gdshader" id="2_0fs3u"]
 [ext_resource type="Texture2D" uid="uid://cy4vs47pxyol7" path="res://2DPlatformer/Assets/template background 1.png" id="2_r3gp2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b7sme"]

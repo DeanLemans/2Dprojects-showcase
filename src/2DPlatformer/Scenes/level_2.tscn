@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=4 uid="uid://bcay2emxfvqn5"]
 
 [ext_resource type="Script" path="res://2DPlatformer/scripts/level_2.gd" id="1_dhir7"]
-[ext_resource type="TileSet" uid="uid://bn4p181ue1q7c" path="res://2DPlatformer/Scenes/prefabs.tres" id="2_6uv67"]
+[ext_resource type="TileSet" uid="uid://bn4p181ue1q7c" path="res://2DPlatformer/Assets/prefabs.tres" id="2_6uv67"]
 [ext_resource type="Texture2D" uid="uid://cch24e1qw7so0" path="res://2DPlatformer/Assets/template background 2.png" id="2_rue1r"]
 [ext_resource type="PackedScene" uid="uid://dhu4ikmaqqcuc" path="res://2DPlatformer/Scenes/player.tscn" id="3_jb4my"]
 [ext_resource type="PackedScene" uid="uid://di1q0naj5lgbi" path="res://2DPlatformer/Scenes/enemy.tscn" id="4_ewmvd"]
 [ext_resource type="PackedScene" uid="uid://nxixuukadc3u" path="res://2DPlatformer/Scenes/level_complete.tscn" id="5_fmxxa"]
-[ext_resource type="Theme" uid="uid://bq52vocemd2d3" path="res://2DPlatformer/Scenes/UI prefab.tres" id="6_pqsvd"]
+[ext_resource type="Theme" uid="uid://bq52vocemd2d3" path="res://2DPlatformer/Assets/UI prefab.tres" id="6_pqsvd"]
 
 [sub_resource type="Gradient" id="Gradient_mv6f0"]
 
