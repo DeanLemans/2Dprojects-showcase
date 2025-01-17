@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dx0eovk7mtqqp"]
 
-[ext_resource type="Script" path="res://2DPlatformer/scripts/mainMenu.gd" id="1_n08vo"]
+[ext_resource type="Script" uid="uid://dtihneivb5hoo" path="res://2DPlatformer/scripts/mainMenu.gd" id="1_n08vo"]
 [ext_resource type="Texture2D" uid="uid://cy4vs47pxyol7" path="res://2DPlatformer/Assets/template background 1.png" id="2_o1wva"]
 [ext_resource type="AudioStream" uid="uid://diu0xkscl0bfn" path="res://2DPlatformer/Assets/music/for-elevator-jazz-music-124005.mp3" id="3_65xxw"]
 [ext_resource type="Theme" uid="uid://bq52vocemd2d3" path="res://2DPlatformer/Assets/UI prefab.tres" id="4_0be32"]

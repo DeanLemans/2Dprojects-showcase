@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Project-showcase"
 run/main_scene="res://2DPlatformer/Scenes/mainMenu.tscn"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.4", "GL Compatibility")
 run/low_processor_mode=true
 boot_splash/image="res://traditional-dark.png"
 config/icon="res://icon.svg"
@@ -20,8 +20,8 @@ config/icon="res://icon.svg"
 [display]
 
 window/size/extend_to_title=true
-window/energy_saving/keep_screen_on.editor_hint=true
 window/stretch/mode="viewport"
+window/energy_saving/keep_screen_on.editor_hint=true
 
 [input]
 
