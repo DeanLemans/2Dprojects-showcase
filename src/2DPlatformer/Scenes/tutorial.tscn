@@ -22,15 +22,15 @@ fill_to = Vector2(1, 1)
 script = ExtResource("1_cjn1x")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
-scroll_scale = Vector2(0, 0)
-scroll_offset = Vector2(1, -1)
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(512, 256)
+autoscroll = Vector2(1, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
 texture_repeat = 2
 texture = ExtResource("2_iwb26")
-centered = false
 region_enabled = true
-region_rect = Rect2(256, 256, 256, 256)
+region_rect = Rect2(0, 0, 512, 256)
 
 [node name="Layer0" type="TileMapLayer" parent="."]
 use_parent_material = true
