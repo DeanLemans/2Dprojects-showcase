@@ -19,7 +19,6 @@ gradient = SubResource("Gradient_mv6f0")
 fill_to = Vector2(1, 1)
 
 [node name="tutorial" type="Node2D"]
-scale = Vector2(1, 0.992585)
 script = ExtResource("1_cjn1x")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
