@@ -29,7 +29,7 @@ jobs:
       image: barichello/godot-ci:4.3
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@latest
         with:
           lfs: true
       - name: Setup
@@ -47,7 +47,7 @@ jobs:
           godot --headless --verbose --export-release "Windows Desktop" "$EXPORT_DIR/windows/$WINDOWS_EXPORT_NAME.exe"
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@latest
         with:
           name: windows
           path: build/windows
@@ -60,7 +60,7 @@ jobs:
       image: barichello/godot-ci:4.3
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@latest
         with:
           lfs: true
 
@@ -77,7 +77,7 @@ jobs:
           godot --headless --verbose --export-release "Linux" "$EXPORT_DIR/linux/$LINUX_EXPORT_NAME.x86_64"
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@latest
         with:
           name: linux
           path: build/linux
@@ -90,7 +90,7 @@ jobs:
       image: barichello/godot-ci:4.3
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@latest
         with:
           lfs: true
 
@@ -107,7 +107,7 @@ jobs:
           godot --headless --verbose --export-release "Web" "$EXPORT_DIR/web/index.html"
 
       - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@latest
         with:
           path: build/web
 
@@ -123,7 +123,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@latest
 
   export-mac:
     name: Mac Export
@@ -132,7 +132,7 @@ jobs:
       image: barichello/godot-ci:4.3
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@latest
         with:
           lfs: true
 
@@ -149,7 +149,7 @@ jobs:
           godot --headless --verbose --export-release "macOS" "$EXPORT_DIR/mac/$MAC_EXPORT_NAME.zip"
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@latest
         with:
           name: mac
           path: build/mac
@@ -162,25 +162,25 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Download Windows Artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@latest
         with:
           name: windows
           path: build/windows
 
       - name: Download Linux Artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@latest
         with:
           name: linux
           path: build/linux
 
       - name: Download Mac Artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@latest
         with:
           name: mac
           path: build/mac
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2.2.1
+        uses: softprops/action-gh-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
