@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://nxixuukadc3u"]
 
-[ext_resource type="Script" path="res://2DPlatformer/scripts/level_complete.gd" id="1_036ae"]
+[ext_resource type="Script" uid="uid://ct0414evnpjd0" path="res://2DPlatformer/scripts/level_complete.gd" id="1_036ae"]
 [ext_resource type="Texture2D" uid="uid://b0del777xqa0" path="res://2DPlatformer/Assets/icon.svg" id="2_h62eh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwjxj"]
