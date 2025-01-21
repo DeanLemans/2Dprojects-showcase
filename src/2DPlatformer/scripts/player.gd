@@ -29,13 +29,13 @@ func _physics_process(delta):
 			land()
 		in_air = false
 
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("up"):
 		if is_on_floor(): #normal jump from floor
 			jump()
 		elif not has_double_jumped:
 			double_jump() #double jump in air
 
-	direction = Input.get_vector("left", "right", "jump", "down")
+	direction = Input.get_vector("left", "right", "up", "down")
 	
 	if direction.x != 0 && animated_sprite.animation != "land":
 		velocity.x = direction.x * speed
