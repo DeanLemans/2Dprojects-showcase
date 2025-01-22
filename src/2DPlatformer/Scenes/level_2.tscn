@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dhu4ikmaqqcuc" path="res://2DPlatformer/Scenes/player.tscn" id="3_jb4my"]
 [ext_resource type="PackedScene" uid="uid://di1q0naj5lgbi" path="res://2DPlatformer/Scenes/enemy.tscn" id="4_ewmvd"]
 [ext_resource type="PackedScene" uid="uid://nxixuukadc3u" path="res://2DPlatformer/Scenes/level_complete.tscn" id="5_fmxxa"]
-[ext_resource type="Theme" uid="uid://bq52vocemd2d3" path="res://2DPlatformer/Assets/UI prefab.tres" id="6_pqsvd"]
+[ext_resource type="Theme" uid="uid://bq52vocemd2d3" path="res://assets/MainUI.tres" id="6_pqsvd"]
 
 [sub_resource type="Gradient" id="Gradient_mv6f0"]
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dtihneivb5hoo" path="res://2DPlatformer/scripts/mainMenu.gd" id="1_nojfs"]
 [ext_resource type="Texture2D" uid="uid://cy4vs47pxyol7" path="res://2DPlatformer/Assets/template background 1.png" id="2_jf6ma"]
-[ext_resource type="Theme" uid="uid://bq52vocemd2d3" path="res://2DPlatformer/Assets/UI prefab.tres" id="3_ggqgi"]
+[ext_resource type="Theme" uid="uid://bq52vocemd2d3" path="res://assets/MainUI.tres" id="3_ggqgi"]
 [ext_resource type="AudioStream" uid="uid://diu0xkscl0bfn" path="res://2DPlatformer/Assets/music/for-elevator-jazz-music-124005.mp3" id="4_6dvh8"]
 
 [node name="Main" type="Node2D"]
@@ -81,9 +81,9 @@ text = "Play"
 
 [node name="Quit" type="Button" parent="Control"]
 layout_mode = 0
-offset_left = 471.0
+offset_left = 357.0
 offset_top = 475.0
-offset_right = 687.0
+offset_right = 918.0
 offset_bottom = 543.0
 tooltip_text = "fucking pussy"
 theme_override_font_sizes/font_size = 25

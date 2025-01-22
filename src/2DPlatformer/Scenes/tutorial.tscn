@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dhu4ikmaqqcuc" path="res://2DPlatformer/Scenes/player.tscn" id="3_oqqx1"]
 [ext_resource type="Shader" uid="uid://skmdd1bxjv7s" path="res://2DPlatformer/Assets/BetterText.gdshader" id="4_75j2e"]
 [ext_resource type="PackedScene" uid="uid://di1q0naj5lgbi" path="res://2DPlatformer/Scenes/enemy.tscn" id="4_yk2k1"]
-[ext_resource type="Theme" uid="uid://bq52vocemd2d3" path="res://2DPlatformer/Assets/UI prefab.tres" id="6_1feq2"]
+[ext_resource type="Theme" uid="uid://bq52vocemd2d3" path="res://assets/MainUI.tres" id="6_1feq2"]
 [ext_resource type="PackedScene" uid="uid://nxixuukadc3u" path="res://2DPlatformer/Scenes/level_complete.tscn" id="6_idpld"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0xm4y"]
