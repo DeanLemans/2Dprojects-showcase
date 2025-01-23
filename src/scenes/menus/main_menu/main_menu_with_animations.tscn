@@ -370,16 +370,27 @@ parameters/conditions/intro_done = false
 [node name="VersionContainer" parent="VersionMargin" index="0"]
 modulate = Color(1, 1, 1, 0)
 
+[node name="VersionLabel" parent="VersionMargin/VersionContainer" index="0"]
+offset_left = -51.0
+offset_top = -29.0
+
 [node name="TitleContainer" parent="MenuContainer/TitleMargin" index="0"]
 modulate = Color(1, 1, 1, 0)
 
 [node name="TitleLabel" parent="MenuContainer/TitleMargin/TitleContainer" index="0"]
+offset_left = 436.0
+offset_top = -18.0
+offset_right = -436.0
+offset_bottom = 55.0
 text = "project showcase"
 
 [node name="SubTitleContainer" parent="MenuContainer/SubTitleMargin" index="0"]
 modulate = Color(1, 1, 1, 0)
 
 [node name="SubTitleLabel" parent="MenuContainer/SubTitleMargin/SubTitleContainer" index="0"]
+offset_left = 558.0
+offset_right = -558.0
+offset_bottom = 40.0
 text = "Dean Lemans"
 
 [node name="MenuButtonsContainer" parent="MenuContainer/MenuButtonsMargin" index="0"]

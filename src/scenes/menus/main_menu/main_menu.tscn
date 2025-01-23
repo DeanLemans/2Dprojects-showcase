@@ -11,5 +11,18 @@ game_scene_path = "uid://dx0eovk7mtqqp"
 options_packed_scene = ExtResource("3_bh880")
 credits_packed_scene = ExtResource("4_hb88b")
 
+[node name="VersionLabel" parent="VersionMargin/VersionContainer" index="0"]
+offset_left = -51.0
+offset_top = -29.0
+
 [node name="TitleLabel" parent="MenuContainer/TitleMargin/TitleContainer" index="0"]
+offset_left = 436.0
+offset_top = -17.0
+offset_right = -436.0
+offset_bottom = 56.0
 text = "project showcase"
+
+[node name="SubTitleLabel" parent="MenuContainer/SubTitleMargin/SubTitleContainer" index="0"]
+offset_left = 592.0
+offset_right = -593.0
+offset_bottom = 40.0

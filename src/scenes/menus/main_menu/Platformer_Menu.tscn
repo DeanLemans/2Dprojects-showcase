@@ -3,20 +3,15 @@
 [ext_resource type="Script" uid="uid://dtihneivb5hoo" path="res://2DPlatformer/scripts/mainMenu.gd" id="1_nojfs"]
 [ext_resource type="Texture2D" uid="uid://cy4vs47pxyol7" path="res://2DPlatformer/Assets/template background 1.png" id="2_jf6ma"]
 [ext_resource type="Theme" uid="uid://bq52vocemd2d3" path="res://assets/MainUI.tres" id="3_ggqgi"]
-[ext_resource type="AudioStream" uid="uid://diu0xkscl0bfn" path="res://2DPlatformer/Assets/music/for-elevator-jazz-music-124005.mp3" id="4_6dvh8"]
+[ext_resource type="AudioStream" uid="uid://diu0xkscl0bfn" path="res://assets/music/elevator-jazz.mp3" id="4_6dvh8"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_nojfs")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 texture_filter = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 offset_right = 1280.0
 offset_bottom = 720.0
-grow_horizontal = 2
-grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource("2_jf6ma")
@@ -37,7 +32,10 @@ mouse_filter = 2
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 73.0
+offset_left = 400.0
+offset_top = -14.0
+offset_right = -454.0
+offset_bottom = 59.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 48
 text = "Dean's platformer"
@@ -57,7 +55,9 @@ mouse_filter = 2
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 34.0
+offset_left = 600.0
+offset_right = -570.0
+offset_bottom = 40.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 24
 text = "very cool"
@@ -91,9 +91,9 @@ text = "Quit (needs to go back to main menu"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Control"]
 layout_mode = 0
-offset_left = 500.0
+offset_left = 522.0
 offset_top = 270.0
-offset_right = 734.0
+offset_right = 756.0
 offset_bottom = 349.0
 bbcode_enabled = true
 text = "[center]Your goal:

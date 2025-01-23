@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bsfggqd06bvkr"
+path="res://.godot/imported/Forecast Elevator.mp3-11d4c9b2ea0dc796b0a5cf9aaafb09d9.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Forecast Elevator.mp3"
+dest_files=["res://.godot/imported/Forecast Elevator.mp3-11d4c9b2ea0dc796b0a5cf9aaafb09d9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4
