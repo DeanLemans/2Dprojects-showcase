@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=4 uid="uid://b8xaowg7a8uoi"]
 
-[ext_resource type="Script" uid="uid://dqsd0gjg106h0" path="res://2DPlatformer/scripts/level_3.gd" id="1_wjc2n"]
+[ext_resource type="Script" path="res://2DPlatformer/scripts/level_3.gd" id="1_wjc2n"]
 [ext_resource type="TileSet" uid="uid://bn4p181ue1q7c" path="res://2DPlatformer/Assets/prefabs.tres" id="2_aijbs"]
-[ext_resource type="Texture2D" uid="uid://dsq6teh5a6iyp" path="res://2DPlatformer/Assets/template background 4.png" id="2_ewy4m"]
+[ext_resource type="Texture2D" uid="uid://dsq6teh5a6iyp" path="res://2DPlatformer/Assets/background-4.png" id="2_ewy4m"]
 [ext_resource type="PackedScene" uid="uid://dhu4ikmaqqcuc" path="res://2DPlatformer/Scenes/player.tscn" id="3_q5al7"]
 [ext_resource type="PackedScene" uid="uid://di1q0naj5lgbi" path="res://2DPlatformer/Scenes/enemy.tscn" id="5_m2ryy"]
 [ext_resource type="PackedScene" uid="uid://laer080edpwc" path="res://2DPlatformer/Scenes/you_win.tscn" id="7_35j6o"]

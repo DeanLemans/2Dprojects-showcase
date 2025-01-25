@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://fkousx6tdb0y"]
 
-[ext_resource type="Script" uid="uid://b20c7m78ao8fi" path="res://2DPlatformer/scripts/level_selection.gd" id="1_ckdcw"]
-[ext_resource type="Texture2D" uid="uid://cy4vs47pxyol7" path="res://2DPlatformer/Assets/template background 1.png" id="2_055nk"]
+[ext_resource type="Script" path="res://2DPlatformer/scripts/level_selection.gd" id="1_ckdcw"]
+[ext_resource type="Texture2D" uid="uid://cy4vs47pxyol7" path="res://2DPlatformer/Assets/background-1.png" id="2_055nk"]
 [ext_resource type="AudioStream" uid="uid://bsfggqd06bvkr" path="res://assets/music/Forecast Elevator.mp3" id="2_b01fr"]
 [ext_resource type="Theme" uid="uid://bq52vocemd2d3" path="res://assets/MainUI.tres" id="6_ef5v4"]
 

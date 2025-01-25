@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bd7kjr3hhbpq7" path="res://2DPlatformer/scripts/tutorial.gd" id="1_cjn1x"]
 [ext_resource type="TileSet" uid="uid://bn4p181ue1q7c" path="res://2DPlatformer/Assets/prefabs.tres" id="2_8xe6e"]
-[ext_resource type="Texture2D" uid="uid://ov375lxogarp" path="res://2DPlatformer/Assets/template background 3.png" id="2_iwb26"]
+[ext_resource type="Texture2D" uid="uid://ov375lxogarp" path="res://2DPlatformer/Assets/background-3.png" id="2_iwb26"]
 [ext_resource type="PackedScene" uid="uid://dhu4ikmaqqcuc" path="res://2DPlatformer/Scenes/player.tscn" id="3_oqqx1"]
 [ext_resource type="Shader" uid="uid://skmdd1bxjv7s" path="res://2DPlatformer/Assets/BetterText.gdshader" id="4_75j2e"]
 [ext_resource type="PackedScene" uid="uid://di1q0naj5lgbi" path="res://2DPlatformer/Scenes/enemy.tscn" id="4_yk2k1"]
