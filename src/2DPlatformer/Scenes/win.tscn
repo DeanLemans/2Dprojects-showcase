@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://crx7nexie5s80"]
 
-[ext_resource type="Script" uid="uid://dcursoxus3t4u" path="res://2DPlatformer/scripts/win.gd" id="1_rijo4"]
-[ext_resource type="Texture2D" uid="uid://crq66vscgr5qi" path="res://2DPlatformer/Assets/goalfinish line placeholder.jpg" id="2_0huvl"]
+[ext_resource type="Script" path="res://2DPlatformer/scripts/win.gd" id="1_rijo4"]
+[ext_resource type="Texture2D" uid="uid://crq66vscgr5qi" path="res://2DPlatformer/Assets/background-win.jpg" id="2_0huvl"]
 [ext_resource type="Theme" uid="uid://bq52vocemd2d3" path="res://assets/MainUI.tres" id="3_hxckr"]
 
 [node name="win" type="Node2D"]

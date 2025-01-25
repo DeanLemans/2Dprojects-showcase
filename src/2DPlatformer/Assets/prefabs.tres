@@ -1,7 +1,6 @@
-[gd_resource type="TileSet" load_steps=20 format=3 uid="uid://bn4p181ue1q7c"]
+[gd_resource type="TileSet" load_steps=18 format=3 uid="uid://bn4p181ue1q7c"]
 
-[ext_resource type="Texture2D" uid="uid://cexex4yie7obb" path="res://2DPlatformer/Assets/Basic Tilemap.png" id="1_ixtv5"]
-[ext_resource type="Texture2D" uid="uid://cr027qdmqoyus" path="res://2DPlatformer/Assets/160x160 background tilemap.png" id="2_mwpek"]
+[ext_resource type="Texture2D" uid="uid://cexex4yie7obb" path="res://2DPlatformer/Assets/Tilemap.png" id="1_ixtv5"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_qkup7"]
 tile_data = PackedInt32Array(0, 65536, 5, 65536, 65536, 8, 1, 262144, 5, 65537, 262144, 8)
@@ -147,65 +146,9 @@ texture = ExtResource("1_ixtv5")
 5:9/0 = 0
 5:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x885x"]
-texture = ExtResource("2_mwpek")
-0:0/0 = 0
-1:0/0 = 0
-2:0/0 = 0
-3:0/0 = 0
-4:0/0 = 0
-5:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
-2:1/0 = 0
-3:1/0 = 0
-4:1/0 = 0
-5:1/0 = 0
-0:2/0 = 0
-1:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
-4:2/0 = 0
-5:2/0 = 0
-0:3/0 = 0
-1:3/0 = 0
-2:3/0 = 0
-3:3/0 = 0
-4:3/0 = 0
-5:3/0 = 0
-0:4/0 = 0
-1:4/0 = 0
-2:4/0 = 0
-3:4/0 = 0
-4:4/0 = 0
-5:4/0 = 0
-0:5/0 = 0
-1:5/0 = 0
-2:5/0 = 0
-3:5/0 = 0
-4:5/0 = 0
-5:5/0 = 0
-6:6/0 = 0
-7:6/0 = 0
-8:6/0 = 0
-9:6/0 = 0
-6:7/0 = 0
-7:7/0 = 0
-8:7/0 = 0
-9:7/0 = 0
-6:8/0 = 0
-7:8/0 = 0
-8:8/0 = 0
-9:8/0 = 0
-6:9/0 = 0
-7:9/0 = 0
-8:9/0 = 0
-9:9/0 = 0
-
 [resource]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_jxsn7")
-sources/5 = SubResource("TileSetAtlasSource_x885x")
 pattern_0 = SubResource("TileMapPattern_qkup7")
 pattern_1 = SubResource("TileMapPattern_1fsf5")
 pattern_2 = SubResource("TileMapPattern_hewqr")

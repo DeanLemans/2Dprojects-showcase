@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://laer080edpwc"]
 
-[ext_resource type="Script" uid="uid://rkimt6snq8md" path="res://2DPlatformer/scripts/you_win.gd" id="1_4i37e"]
-[ext_resource type="Texture2D" uid="uid://byakjurxtdevp" path="res://2DPlatformer/Assets/test goal sprite 3.png" id="2_si4by"]
+[ext_resource type="Script" path="res://2DPlatformer/scripts/you_win.gd" id="1_4i37e"]
+[ext_resource type="Texture2D" uid="uid://byakjurxtdevp" path="res://2DPlatformer/Assets/final-goal.png" id="2_si4by"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h52i5"]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cr027qdmqoyus"
-path="res://.godot/imported/160x160 background tilemap.png-24a199f480fc0e83d7e3b6302f413e33.ctex"
+uid="uid://cahyyesosjkfj"
+path="res://.godot/imported/background-lose.jpg-e407704825767d1139cc605f452bad85.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://2DPlatformer/Assets/160x160 background tilemap.png"
-dest_files=["res://.godot/imported/160x160 background tilemap.png-24a199f480fc0e83d7e3b6302f413e33.ctex"]
+source_file="res://2DPlatformer/Assets/background-lose.jpg"
+dest_files=["res://.godot/imported/background-lose.jpg-e407704825767d1139cc605f452bad85.ctex"]
 
 [params]
 
