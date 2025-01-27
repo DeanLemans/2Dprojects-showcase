@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dkf0wuufp7otf"]
+[gd_scene load_steps=3 format=3 uid="uid://c6vbyblk61cqp"]
 
-[ext_resource type="Script" uid="uid://cvbk4fe88kr8u" path="res://scenes/game_scene/levels/level.gd" id="1_bd4pj"]
-[ext_resource type="Script" uid="uid://j8qoamee5iu7" path="res://addons/maaacks_game_template/base/scripts/capture_focus.gd" id="2_41ag7"]
+[ext_resource type="Script" uid="uid://cvbk4fe88kr8u" path="res://scenes/game_scene/levels_template/level.gd" id="1_0lcsd"]
+[ext_resource type="Script" uid="uid://j8qoamee5iu7" path="res://addons/maaacks_game_template/base/scripts/capture_focus.gd" id="2_1jt74"]
 
 [node name="Level1" type="Control"]
 layout_mode = 3
@@ -10,7 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_bd4pj")
+script = ExtResource("1_0lcsd")
 
 [node name="BackgroundColor" type="ColorRect" parent="."]
 unique_name_in_owner = true
@@ -42,7 +42,7 @@ theme_override_constants/separation = 16
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 32
-script = ExtResource("2_41ag7")
+script = ExtResource("2_1jt74")
 
 [node name="LoseButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -53,11 +53,6 @@ text = "Lose"
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Win"
-
-[node name="LoseButton2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Lose"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -73,5 +68,4 @@ text = "Change Color"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/LoseButton" to="." method="_on_lose_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/WinButton" to="." method="_on_win_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/LoseButton2" to="." method="_on_lose_button_pressed"]
 [connection signal="color_changed" from="MarginContainer/VBoxContainer/HBoxContainer2/ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]
