@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dsva31rglqhru"]
 
-[ext_resource type="Script" path="res://2DPlatformer/scripts/lost.gd" id="1_hhvo3"]
+[ext_resource type="Script" uid="uid://b1jh6bibupo07" path="res://2DPlatformer/scripts/lost.gd" id="1_hhvo3"]
 [ext_resource type="Texture2D" uid="uid://cahyyesosjkfj" path="res://2DPlatformer/Assets/background-lose.jpg" id="3_iq7bg"]
 [ext_resource type="Theme" uid="uid://bq52vocemd2d3" path="res://assets/MainUI.tres" id="3_krx66"]
 
