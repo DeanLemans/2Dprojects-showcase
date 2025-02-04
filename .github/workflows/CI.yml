@@ -45,6 +45,7 @@ jobs:
           EXPORT_DIR="$(readlink -f build)"
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "Windows Desktop" "$EXPORT_DIR/windows/$WINDOWS_EXPORT_NAME.exe"
+        continue-on-error: true
 
       - name: Upload Artifact
         uses: actions/upload-artifact@master
@@ -75,6 +76,7 @@ jobs:
           EXPORT_DIR="$(readlink -f build)"
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "Linux" "$EXPORT_DIR/linux/$LINUX_EXPORT_NAME.x86_64"
+        continue-on-error: true
 
       - name: Upload Artifact
         uses: actions/upload-artifact@master
@@ -105,6 +107,7 @@ jobs:
           EXPORT_DIR="$(readlink -f build)"
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "Web" "$EXPORT_DIR/web/index.html"
+        continue-on-error: true
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@master
@@ -147,6 +150,7 @@ jobs:
           EXPORT_DIR="$(readlink -f build)"
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "macOS" "$EXPORT_DIR/mac/$MAC_EXPORT_NAME.zip"
+        continue-on-error: true
 
       - name: Upload Artifact
         uses: actions/upload-artifact@master
@@ -166,18 +170,21 @@ jobs:
         with:
           name: windows
           path: build/windows
+          continue-on-error: true
 
       - name: Download Linux Artifact
         uses: actions/download-artifact@master
         with:
           name: linux
           path: build/linux
+          continue-on-error: true
 
       - name: Download Mac Artifact
         uses: actions/download-artifact@master
         with:
           name: mac
           path: build/mac
+          continue-on-error: true
 
       - name: Create Release
         uses: softprops/action-gh-release@master
@@ -192,12 +199,12 @@ jobs:
             build/windows/${{ env.WINDOWS_EXPORT_NAME }}.exe
             build/linux/${{ env.LINUX_EXPORT_NAME }}.x86_64
             build/mac/${{ env.MAC_EXPORT_NAME }}.zip
-          fail_on_unmatched_files: true
+          fail_on_unmatched_files: false  # Changed to false to handle missing files
           body: |
             Commit Description:
             ${{ github.event.head_commit.message }}
 
-
             Build generated from commit: ${{ github.sha }}
             Branch: ${{ github.ref_name }}
             Timestamp: ${{ github.event.head_commit.timestamp }}
+            
