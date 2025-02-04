@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://cff88ui6woo0"]
+
+[ext_resource type="PackedScene" uid="uid://c6k5nnpbypshi" path="res://addons/maaacks_game_template/base/scenes/menus/main_menu/main_menu.tscn" id="1_qxpg6"]
+[ext_resource type="Script" uid="uid://clk0urav8i5fw" path="res://scenes/menus/main_menu/main_menu.gd" id="2_2sm3s"]
+
+[node name="MainMenu" instance=ExtResource("1_qxpg6")]
+script = ExtResource("2_2sm3s")
+
+[node name="VersionLabel" parent="VersionMargin/VersionContainer" index="0"]
+offset_left = -51.0
+offset_top = -29.0
+
+[node name="TitleLabel" parent="MenuContainer/TitleMargin/TitleContainer" index="0"]
+offset_left = 436.0
+offset_top = -17.0
+offset_right = -436.0
+offset_bottom = 56.0
+text = "Select Your Game!"
+
+[node name="SubTitleLabel" parent="MenuContainer/SubTitleMargin/SubTitleContainer" index="0"]
+offset_left = 592.0
+offset_right = -593.0
+offset_bottom = 40.0
+text = "-------------------------------------------"
+
+[node name="NewGameButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="0"]
+text = "1"
+
+[node name="OptionsButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="1"]
+visible = false
+
+[node name="CreditsButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="2"]
+visible = false
