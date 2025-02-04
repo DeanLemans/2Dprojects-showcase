@@ -1,10 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://cff88ui6woo0"]
 
 [ext_resource type="PackedScene" uid="uid://c6k5nnpbypshi" path="res://addons/maaacks_game_template/base/scenes/menus/main_menu/main_menu.tscn" id="1_qxpg6"]
-[ext_resource type="Script" uid="uid://clk0urav8i5fw" path="res://scenes/menus/main_menu/main_menu.gd" id="2_2sm3s"]
+[ext_resource type="Script" uid="uid://bstb8jo0kegrw" path="res://scenes/menus/main_menu/game_select_menu.gd" id="2_f4ih5"]
 
 [node name="MainMenu" instance=ExtResource("1_qxpg6")]
-script = ExtResource("2_2sm3s")
+script = ExtResource("2_f4ih5")
+game_scene_path = "uid://dx0eovk7mtqqp"
+game_menu_two = ""
+game_menu_tree = ""
+game_menu_four = ""
 
 [node name="VersionLabel" parent="VersionMargin/VersionContainer" index="0"]
 offset_left = -51.0
@@ -26,8 +30,17 @@ text = "-------------------------------------------"
 [node name="NewGameButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="0"]
 text = "1"
 
-[node name="OptionsButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="1"]
+[node name="2" type="Button" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 40)
+layout_mode = 2
+text = "2
+"
+
+[node name="OptionsButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="2"]
 visible = false
 
-[node name="CreditsButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="2"]
+[node name="CreditsButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="3"]
 visible = false
+
+[connection signal="pressed" from="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/2" to="." method="_on_new_game_button_pressed"]
