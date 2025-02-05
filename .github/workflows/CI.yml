@@ -184,11 +184,11 @@ jobs:
           path: build/linux
           continue-on-error: true
 
-      - name: Download Mac Artifact
-        uses: actions/download-artifact@master
-        with:
-          name: mac
-          path: build/mac
+#      - name: Download Mac Artifact
+#        uses: actions/download-artifact@master
+#        with:
+#          name: mac
+#          path: build/mac
           continue-on-error: true
 
       - name: Create Release
