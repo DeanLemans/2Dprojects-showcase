@@ -132,41 +132,40 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@master
 
-  export-mac:
-    name: Mac Export
-    runs-on: ubuntu-latest
-    container:
-      image: barichello/godot-ci:4.3
-    continue-on-error: true
-    steps:
-      - name: Checkout
-        uses: actions/checkout@master
-        with:
-          lfs: true
+  # export-mac:
+  #   name: Mac Export
+  #   runs-on: ubuntu-latest
+  #   container:
+  #   continue-on-error: true
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@master
+  #       with:
+  #         lfs: true
 
-      - name: Setup
-        run: |
-          mkdir -v -p ~/.local/share/godot/export_templates/
-          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+  #     - name: Setup
+  #       run: |
+  #         mkdir -v -p ~/.local/share/godot/export_templates/
+  #         mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
 
-      - name: Mac Build
-        run: |
-          mkdir -v -p build/mac
-          EXPORT_DIR="$(readlink -f build)"
-          cd $PROJECT_PATH
-          godot --headless --verbose --export-release "macOS" "$EXPORT_DIR/mac/$MAC_EXPORT_NAME.zip"
-        continue-on-error: true
+  #     - name: Mac Build
+  #       run: |
+  #         mkdir -v -p build/mac
+  #         EXPORT_DIR="$(readlink -f build)"
+  #         cd $PROJECT_PATH
+  #         godot --headless --verbose --export-release "macOS" "$EXPORT_DIR/mac/$MAC_EXPORT_NAME.zip"
+  #       continue-on-error: true
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: mac
-          path: build/mac
-          retention-days: 5
+  #     - name: Upload Artifact
+  #       uses: actions/upload-artifact@master
+  #       with:
+  #         name: mac
+  #         path: build/mac
+  #         retention-days: 5
 
   create-release:
     name: Create Release
-    needs: [export-windows, export-linux, export-mac, export-web, deploy-web]
+    needs: [export-windows, export-linux, export-web, deploy-web]
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
@@ -184,12 +183,12 @@ jobs:
           path: build/linux
           continue-on-error: true
 
-#      - name: Download Mac Artifact
-#        uses: actions/download-artifact@master
-#        with:
-#          name: mac
-#          path: build/mac
-          continue-on-error: true
+      # - name: Download Mac Artifact
+      #   uses: actions/download-artifact@master
+      #   with:
+      #     name: mac
+      #     path: build/mac
+      #     continue-on-error: true
 
       - name: Create Release
         uses: softprops/action-gh-release@master
@@ -203,7 +202,7 @@ jobs:
           files: |
             build/windows/${{ env.WINDOWS_EXPORT_NAME }}.exe
             build/linux/${{ env.LINUX_EXPORT_NAME }}.x86_64
-            build/mac/${{ env.MAC_EXPORT_NAME }}.zip
+            # build/mac/${{ env.MAC_EXPORT_NAME }}.zip
           fail_on_unmatched_files: false  # Changed to false to handle missing files
           body: |
             Commit Description:
@@ -212,4 +211,3 @@ jobs:
             Build generated from commit: ${{ github.sha }}
             Branch: ${{ github.ref_name }}
             Timestamp: ${{ github.event.head_commit.timestamp }}
-            
