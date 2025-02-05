@@ -27,6 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: barichello/godot-ci:4.3
+    continue-on-error: true
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -45,7 +46,6 @@ jobs:
           EXPORT_DIR="$(readlink -f build)"
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "Windows Desktop" "$EXPORT_DIR/windows/$WINDOWS_EXPORT_NAME.exe"
-        continue-on-error: true
 
       - name: Upload Artifact
         uses: actions/upload-artifact@master
@@ -59,6 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: barichello/godot-ci:4.3
+    continue-on-error: true
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -76,7 +77,6 @@ jobs:
           EXPORT_DIR="$(readlink -f build)"
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "Linux" "$EXPORT_DIR/linux/$LINUX_EXPORT_NAME.x86_64"
-        continue-on-error: true
 
       - name: Upload Artifact
         uses: actions/upload-artifact@master
@@ -90,6 +90,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: barichello/godot-ci:4.3
+    continue-on-error: true
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -107,7 +108,6 @@ jobs:
           EXPORT_DIR="$(readlink -f build)"
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "Web" "$EXPORT_DIR/web/index.html"
-        continue-on-error: true
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@master
@@ -123,6 +123,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
@@ -133,6 +134,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: barichello/godot-ci:4.3
+    continue-on-error: true
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -150,7 +152,6 @@ jobs:
           EXPORT_DIR="$(readlink -f build)"
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "macOS" "$EXPORT_DIR/mac/$MAC_EXPORT_NAME.zip"
-        continue-on-error: true
 
       - name: Upload Artifact
         uses: actions/upload-artifact@master
