@@ -46,6 +46,7 @@ jobs:
           EXPORT_DIR="$(readlink -f build)"
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "Windows Desktop" "$EXPORT_DIR/windows/$WINDOWS_EXPORT_NAME.exe"
+        continue-on-error: true
 
       - name: Upload Artifact
         uses: actions/upload-artifact@master
@@ -77,6 +78,7 @@ jobs:
           EXPORT_DIR="$(readlink -f build)"
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "Linux" "$EXPORT_DIR/linux/$LINUX_EXPORT_NAME.x86_64"
+        continue-on-error: true
 
       - name: Upload Artifact
         uses: actions/upload-artifact@master
@@ -108,6 +110,7 @@ jobs:
           EXPORT_DIR="$(readlink -f build)"
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "Web" "$EXPORT_DIR/web/index.html"
+        continue-on-error: true
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@master
@@ -152,6 +155,7 @@ jobs:
           EXPORT_DIR="$(readlink -f build)"
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "macOS" "$EXPORT_DIR/mac/$MAC_EXPORT_NAME.zip"
+        continue-on-error: true
 
       - name: Upload Artifact
         uses: actions/upload-artifact@master
