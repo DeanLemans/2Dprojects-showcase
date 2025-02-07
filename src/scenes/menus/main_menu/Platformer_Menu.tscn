@@ -7,6 +7,7 @@
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_nojfs")
+game_path = "uid://buqchtcwe5gk2"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 texture_filter = 1
@@ -70,7 +71,7 @@ layout_mode = 3
 anchors_preset = 0
 theme = ExtResource("3_ggqgi")
 
-[node name="Ambitie" type="Button" parent="Control"]
+[node name="Play" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 500.0
 offset_top = 151.0
@@ -104,5 +105,5 @@ scroll_active = false
 stream = ExtResource("4_6dvh8")
 autoplay = true
 
-[connection signal="pressed" from="Control/Ambitie" to="." method="_on_ambitie_pressed"]
+[connection signal="pressed" from="Control/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Control/Quit" to="." method="_on_quit_pressed"]

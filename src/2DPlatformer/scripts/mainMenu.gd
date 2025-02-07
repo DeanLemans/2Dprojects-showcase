@@ -1,11 +1,9 @@
 extends Node2D
 
+@export_file("*.tscn") var game_path : String
+
 func _on_quit_pressed():
 	get_tree().quit()
 
-func _on_ambitie_pressed():
-	get_tree().change_scene_to_file("res://2DPlatformer/Scenes/level_selection.tscn")
-
-func _on_glow_pressed():
-	get_tree().change_scene_to_file("res://Scenes/glowLevel.tscn")
-	
+func _on_play_pressed():
+	get_tree().change_scene_to_file(game_path)
